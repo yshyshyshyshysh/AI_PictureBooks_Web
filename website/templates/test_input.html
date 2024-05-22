@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="{{ url_for('static', filename='css/main.82cfd66e.css') }}" rel="stylesheet" />
+    <meta charset="UTF-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width,initial-scale=1" name="viewport">
+    <meta content="description" name="description">
+    <meta name="google" content="notranslate" />
+    <meta content="Mashup templates have been developped by Orson.io team" name="author">
+  
+    <!-- Disable tap highlight on IE -->
+    <meta name="msapplication-tap-highlight" content="no">
+    <title>Test Input</title>
+</head>
+<body>
+
+  <!-- Add your content of header -->
+  <header class="">
+    <div class="navbar navbar-default visible-xs">
+      <button type="button" class="navbar-toggle collapsed">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a href="/" class="navbar-brand">An AI Storybook teller</a>
+    </div>
+
+    <nav class="sidebar">
+      <div class="navbar-collapse" id="navbar-collapse">
+        <div class="site-header hidden-xs">
+          <a class="site-brand" href="/" title="">
+            <img class="img-responsive site-logo" alt="" src="./assets/images/mashup-logo.svg">
+            Mashup Template
+          </a>
+          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            tempor.</p>
+        </div>
+        <ul class="nav">
+          <li><a href="/" title="">Home</a></li>
+          <li><a href="/creator" title="">Story Creator</a></li>
+          <li><a href="/services" title="">Services</a></li>
+          <!-- <li><a href="/contact" title="">Login/Sign up</a></li> -->
+          <li id="loginLink"><a href="/contact" title="">Login/Sign up</a></li>
+          <li><a href="/components" title="">Components</a></li>
+          <!-- 其他連結... -->
+          <li id="logout-li" style="display: none;"><a href="#" id="logout-link">Log out</a></li>
+        </ul>
+
+        <nav class="nav-footer">
+          <p class="nav-footer-social-buttons">
+            <a class="fa-icon" href="https://www.instagram.com/" title="">
+              <i class="fa fa-instagram"></i>
+            </a>
+            <a class="fa-icon" href="https://dribbble.com/" title="">
+              <i class="fa fa-dribbble"></i>
+            </a>
+            <a class="fa-icon" href="https://twitter.com/" title="">
+              <i class="fa fa-twitter"></i>
+            </a>
+          </p>
+          <p>© Untitled | Website created with <a href="http://www.mashup-template.com/"
+              title="Create website with free html template">Mashup Template</a>/<a href="https://www.unsplash.com/"
+              title="Beautiful Free Images">Unsplash</a></p>
+        </nav>
+      </div>
+    </nav>
+  </header>
+  <main class="" id="main-collapse">
+    <form id="inputForm">
+        <label for="title">Title:</label><br>
+        <input type="text" id="title" class="form-control" name="title"><br>
+        <label for="language">Language:</label><br>
+        <input type="text" id="language" class="form-control" name="language"><br>
+        <label for="token">Token:</label><br>
+        <input type="text" id="token" class="form-control" name="token"><br><br>
+        <button type="send-btn" onclick="sendData()">Send</button>
+    </form>
+</main>
+    <script>
+        function sendData() {
+            const form = document.getElementById('inputForm');
+            const formData = new FormData(form);
+        
+            fetch('/submit', {
+            method: 'POST',
+            body: JSON.stringify(Object.fromEntries(formData)),
+            headers: {
+                'Content-Type': 'application/json'
+            }
+            })
+            .then(response => response.json())
+            .then(data => {
+              // 顯示故事
+            const storyDiv = document.createElement('div');
+            storyDiv.innerHTML = `<h3>Story:</h3><p>${data.story}</p>`;
+            document.body.appendChild(storyDiv);
+        
+              // 顯示翻譯
+            const translationDiv = document.createElement('div');
+            translationDiv.innerHTML = `<h3>Translation:</h3><p>${data.translation}</p>`;
+            document.body.appendChild(translationDiv);
+    
+              // 顯示圖片
+            const imageDiv = document.createElement('div');
+            imageDiv.innerHTML = '<h3>Images:</h3>';
+            document.body.appendChild(imageDiv);
+        
+            data.image.forEach(base64Image => {
+                const img = document.createElement('img');
+                img.src = `data:image/png;base64,${base64Image}`;
+                imageDiv.appendChild(img);
+            });
+            // 播放聲音
+            const audioDiv = document.createElement('div');
+            audioDiv.innerHTML = '<h3>Audio:</h3><audio controls><source src="data:audio/mpeg;base64,' + data.audio + '" type="audio/mpeg">Your browser does not support the audio element.</audio>';
+            document.body.appendChild(audioDiv);
+
+            })
+            .catch(error => {
+            console.error('Error:', error);
+            });
+        }
+    </script>
+</body>
+</html>

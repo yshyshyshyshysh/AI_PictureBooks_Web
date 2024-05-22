@@ -1,0 +1,56 @@
+1. newStories with given ID, item (push)
+2. publish stories with given stories token (set)
+3. user Login validation, register (set)
+4. be able to update story, with given id and item (set)
+--------
+
+storage
+5. avatar
+6. paragragh audio
+
+Structure:
+DataBase:
+/ private 用戶的故事
+  / id  獨特ID 用戶
+    / mystories
+      / code (itemID)
+
+/ public 公用
+  / stories
+    / code (Item ID) 故事碼
+
+/ users 用戶資料
+  / email
+    / id
+    / intro
+    / avatar
+    / mystories
+    / pwd
+
+類別
+Class: Paragragh < Story < Item | user
+
+/ Item
+  / title 標題
+  / language 語種
+  / image 圖片
+  / signature 生成的用戶ID
+    / stories [list of Paragragh Object Story]
+
+/ Paragragh
+  / soundtrack 音檔
+  / text 文字
+  / translation 翻譯
+
+/ user
+  / email
+    / userID
+    / intro
+    / avatarURL
+    / pwd
+    / username
+
+Storage:
+... upload ... return url key
+/ image
+/ audio

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>前後端分離網站</title>
+</head>
+<body>
+    <h1>Homepage</h1>
+    <input type="text" id="titleInput" placeholder="请输入标题">
+    <button id="generateBtn" onclick="generateStory()">生成故事</button>
+    <div id="storyContainer"></div>
+
+    <script src="{{ url_for('static', filename='js/scripts.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/upload.js') }}"></script>
+</body>
+</html>
