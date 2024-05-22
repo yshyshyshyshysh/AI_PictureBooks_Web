@@ -12,36 +12,118 @@ from TTS.api import TTS
 
 """Text-Generation > story_info"""
 
+# def text_generation(title):
+#     split_words = ['paragraph 1:', 'illustration 1:', 'paragraph 2:', 'illustration 2:', 'paragraph 3:', 'illustration 3:', 'paragraph 4:', 'illustration 4:']
+#     model_name_or_path = "TheBloke/Llama-2-13B-chat-GGML"
+#     model_basename = "llama-2-13b-chat.ggmlv3.q5_1.bin"
+#     model_path = hf_hub_download(repo_id=model_name_or_path, filename=model_basename)
+#     lcpp_llm = Llama(
+#         model_path=model_path,
+#         n_threads=2,
+#         n_batch=512,
+#         n_gpu_layers=32
+#     )
+#     lcpp_llm.params.n_gpu_layers
+#     prompt = f'''
+#     Taking Andersen's story as an example, write a 'very short' picture book story. It should includes four paragraphs (no more than 30 words) and illustration description in each paragraph.
+#     Title: {title}.
+#     Format please follows:
+#         Title:
+#         Paragraph 1:
+#         Illustration 1:
+#         Paragraph 2:
+#         Illustration 2:
+#         Paragraph 3:
+#         Illustration 3:
+#         Paragraph 4:
+#         Illustration 4:
+#     '''
+#     while True:
+#         print('RUN THE MODEL!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+#         response = lcpp_llm(prompt=prompt, max_tokens=1200, temperature=0.5, top_p=0.95, repeat_penalty=1.2, top_k=150, echo=True)
+#         full_story = response["choices"][0]["text"]
+#         if all(full_story.lower().count(word.lower()) == 2 for word in split_words):
+#             print(full_story)
+#             return full_story
+
+import os
+import torch
+from transformers import (
+    AutoModelForCausalLM,
+    AutoTokenizer,
+    BitsAndBytesConfig,
+    TrainingArguments,
+    pipeline,
+    logging,
+)
+# from peft import LoraConfig
+# from trl import SFTTrainer
+
+import torch
+import gc
+
+def clear_memory():
+    torch.cuda.empty_cache()
+    gc.collect()
+
+# Model from Hugging Face hub
+base_model = "NousResearch/Llama-2-7b-chat-hf"
+
+# New instruction dataset
+guanaco_dataset = "mlabonne/guanaco-llama2-1k"
+
+# Fine-tuned model
+new_model = "llama-2-7b-chat-guanaco"
+
+compute_dtype = getattr(torch, "float16")
+
+quant_config = BitsAndBytesConfig(
+    load_in_4bit=True,
+    bnb_4bit_quant_type="nf4",
+    bnb_4bit_compute_dtype=compute_dtype,
+    bnb_4bit_use_double_quant=False,
+)
+
+
+model = AutoModelForCausalLM.from_pretrained(
+    base_model,
+    quantization_config=quant_config,
+    device_map={"": 0}
+)
+model.config.use_cache = False
+model.config.pretraining_tp = 1
+
+
+tokenizer = AutoTokenizer.from_pretrained(base_model, trust_remote_code=True)
+tokenizer.pad_token = tokenizer.eos_token
+tokenizer.padding_side = "right"
+
 def text_generation(title):
     split_words = ['paragraph 1:', 'illustration 1:', 'paragraph 2:', 'illustration 2:', 'paragraph 3:', 'illustration 3:', 'paragraph 4:', 'illustration 4:']
-    model_name_or_path = "TheBloke/Llama-2-13B-chat-GGML"
-    model_basename = "llama-2-13b-chat.ggmlv3.q5_1.bin"
-    model_path = hf_hub_download(repo_id=model_name_or_path, filename=model_basename)
-    lcpp_llm = Llama(
-        model_path=model_path,
-        n_threads=2,
-        n_batch=512,
-        n_gpu_layers=32
-    )
-    lcpp_llm.params.n_gpu_layers
+    
     prompt = f'''
-    Taking Andersen's story as an example, write a 'very short' picture book story. It should includes four paragraphs (no more than 30 words) and illustration description in each paragraph.
-    Title: {title}.
-    Format please follows:
-        Title:
-        Paragraph 1:
-        Illustration 1:
-        Paragraph 2:
-        Illustration 2:
-        Paragraph 3:
-        Illustration 3:
-        Paragraph 4:
-        Illustration 4:
-    '''
+        Taking Andersen's story as an example, write a 'very short' picture book story in English. 
+        Title: {title}.
+        It should includes four paragraphs, please follow the output format:
+            Title:
+            Paragraph 1:
+            Illustration 1:
+            Paragraph 2:
+            Illustration 2:
+            Paragraph 3:
+            Illustration 3:
+            Paragraph 4:
+            Illustration 4:
+        '''
+
     while True:
         print('RUN THE MODEL!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-        response = lcpp_llm(prompt=prompt, max_tokens=1200, temperature=0.5, top_p=0.95, repeat_penalty=1.2, top_k=150, echo=True)
-        full_story = response["choices"][0]["text"]
+        pipe = pipeline(task="text-generation", model=model, tokenizer=tokenizer, max_length=700,truncation=True)
+        result = pipe(prompt)
+        full_story = result[0]['generated_text']
+        full_story = full_story.replace(prompt,'')
+        clear_memory()  # Clear memory after generation
+        
         if all(full_story.lower().count(word.lower()) == 2 for word in split_words):
             print(full_story)
             return full_story
