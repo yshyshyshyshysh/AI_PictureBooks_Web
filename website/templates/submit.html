@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Image Generation</title>
+    <script>
+    function submitForm() {
+        const title = document.getElementById('title').value;
+        const language = document.getElementById('language').value;
+        const token = document.getElementById('token').value;
+
+        fetch('/submit', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ title, language, token })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+    }
+    </script>
+</head>
+<body>
+    <h1>Image Generation</h1>
+    <label for="title">Title:</label>
+    <input type="text" id="title" name="title"><br><br>
+    <label for="language">Language:</label>
+    <input type="text" id="language" name="language"><br><br>
+    <label for="token">Token:</label>
+    <input type="text" id="token" name="token"><br><br>
+    <button onclick="submitForm()">Submit</button>
+</body>
+</html>

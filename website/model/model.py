@@ -38,12 +38,18 @@ def text_generation(title):
         Paragraph 4:
         Illustration 4:
     '''
-    while True:
-        print('RUN THE MODEL!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-        response = lcpp_llm(prompt=prompt, max_tokens=1200, temperature=0.5, top_p=0.95, repeat_penalty=1.2, top_k=150, echo=True)
-        full_story = response["choices"][0]["text"]
-        if all(full_story.lower().count(word.lower()) == 2 for word in split_words):
-            return full_story
+    # while True:
+    #     print('RUN THE MODEL!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+    #     response = lcpp_llm(prompt=prompt, max_tokens=1200, temperature=0.5, top_p=0.95, repeat_penalty=1.2, top_k=150, echo=True)
+    #     full_story = response["choices"][0]["text"]
+    #     if all(full_story.lower().count(word.lower()) == 2 for word in split_words):
+    #         return full_story
+    print('RUN THE MODEL!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+    response = lcpp_llm(prompt=prompt, max_tokens=1200, temperature=0.5, top_p=0.95, repeat_penalty=1.2, top_k=150, echo=True)
+    full_story = response["choices"][0]["text"]
+    for word in split_words:
+        full_story.lower().count(word.lower()) 
+    return full_story
 
 def extract_story_info(text):
     split_words = ['paragraph 1:', 'illustration 1:', 'paragraph 2:', 'illustration 2:', 'paragraph 3:', 'illustration 3:', 'paragraph 4:', 'illustration 4:']
@@ -79,7 +85,9 @@ def text_to_images(story_info, user_access_token):
     API_URL = "https://api-inference.huggingface.co/models/stabilityai/stable-diffusion-xl-base-1.0"
     headers = {"Authorization": f"Bearer {user_access_token}"}
     def query(payload):
+        print('start')
         response = requests.post(API_URL, headers=headers, json=payload)
+        print('end')
         return response.content
     illustration_keys = ['illustration 1', 'illustration 2', 'illustration 3', 'illustration 4']
     images = []
@@ -118,3 +126,17 @@ def text_to_speeches(story_translations, lang):
         tts.tts_to_file(text=text, file_path=speech_file_path, speaker_wav="speaker.mp3", language=lang)
         speeches.append(speech_file_path)
     return speeches
+
+import shutil
+def download_speech_files(story_speeches, output_dir):
+    import os
+    if not os.path.exists(output_dir):
+        os.makedirs(output_dir)
+    sp_path = []
+    for speech_file in story_speeches:
+        shutil.copy(speech_file, output_dir)
+        print(f"Speech file '{speech_file}' downloaded to: {output_dir}")
+        p = f'{output_dir}/{speech_file}'
+        sp_path.append.p
+    
+    return sp_path

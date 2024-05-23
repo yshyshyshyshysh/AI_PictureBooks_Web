@@ -1,18 +1,25 @@
 from flask import Flask, request, jsonify, render_template
 import getpass
 import base64
-from model.model import generate_story, text_translations, text_to_images, text_to_speeches
-# import firebase_admin
-# from firebase_admin import credentials, storage
+from model.model import generate_story, text_translations, text_to_images, text_to_speeches, translate_to_eng, download_speech_files
+import firebase_admin
+from firebase_admin import credentials, storage
+from io import BytesIO
+from PIL import Image
+import random
+import string
+import os
+import json
+from datetime import timedelta
+import shutil
 app = Flask(__name__)
 
 #  firebase
-#  需要權限
-# cred = credentials.Certificate("/home/webapp/AI_PictureBooks_Web/website/templates/firebaseconfig.json")  # replace with your service account key path
-# firebase_admin.initialize_app(cred, {
-#     'storageBucket': 'project-20240429.appspot.com'
-# })
-# bucket = storage.bucket()
+cred = credentials.Certificate("/home/webapp/AI_PictureBooks_Web/website/templates/firebaseconfig.json")  # replace with your service account key path
+firebase_admin.initialize_app(cred, {
+    'storageBucket': 'webapp-ecc1b.appspot.com'
+})
+bucket = storage.bucket()
 
 """Define Flask routes"""
 
@@ -50,36 +57,63 @@ def signup():
 
 @app.route('/test_input')
 def test():
-    return render_template('test_input.html')
+    return render_template('submit.html')
 
 @app.route('/submit', methods=['POST'])
 def submit():
     data = request.json
     title = data.get('title')
-    language = data.get('language')
-    token = data.get('token')
+    language = data.get('language')  # es
+    token = data.get('token')  # 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
+
+
     
-    # story_info = generate_story(title)
-    # translation = text_translations(story_info, language)
-    story_info = {'paragraph 1': "I was an ordinary boy, but one day I found a strange object in the forest. It was a toad's leg bone and it glowed with magic!", 'illustration 1': "A young boy holding a glowing toad's leg bone, standing in front of a giant tree. The background is filled with colorful leaves and flowers.", 'paragraph 2': 'When I touched the bone, I felt strange powers coursing through my body. Suddenly, I grew scales, wings, and a fiery breath!', 'illustration 2': 'A boy transformed into a dragon, standing on his hind legs with wings spread wide. He is surrounded by flames and smoke.', 'paragraph 3': 'Now I can breathe fire and fly through the skies! People call me the Spit Dragon because of my fiery breath. But sometimes I miss being a human boy.', 'illustration 3': 'A dragon flying over a village, with people looking up in amazement. The dragon has a sad expression on his face, longing for his former life as a human.', 'paragraph 4': "One day, I will find a way to turn back into a boy. Until then, I'll soar the skies and protect my forest home with my fiery breath!", 'illustration 4': 'A dragon perched on a branch of a tree, looking out over the landscape with a determined expression. The sun is setting in the background, casting warm colors across the scene.', 'title': 'I became a spit dragon'}
+    # story_info = {'paragraph 1': "I was an ordinary boy, but one day I found a strange object in the forest. It was a toad's leg bone and it glowed with magic!", 'illustration 1': "A young boy holding a glowing toad's leg bone, standing in front of a giant tree. The background is filled with colorful leaves and flowers.", 'paragraph 2': 'When I touched the bone, I felt strange powers coursing through my body. Suddenly, I grew scales, wings, and a fiery breath!', 'illustration 2': 'A boy transformed into a dragon, standing on his hind legs with wings spread wide. He is surrounded by flames and smoke.', 'paragraph 3': 'Now I can breathe fire and fly through the skies! People call me the Spit Dragon because of my fiery breath. But sometimes I miss being a human boy.', 'illustration 3': 'A dragon flying over a village, with people looking up in amazement. The dragon has a sad expression on his face, longing for his former life as a human.', 'paragraph 4': "One day, I will find a way to turn back into a boy. Until then, I'll soar the skies and protect my forest home with my fiery breath!", 'illustration 4': 'A dragon perched on a branch of a tree, looking out over the landscape with a determined expression. The sun is setting in the background, casting warm colors across the scene.', 'title': 'I became a spit dragon'}
+    title_eng = translate_to_eng(title)
+    story_info = generate_story(title)
+    translation = text_translations(story_info, language)
     image = text_to_images(story_info, token)
-    # speak = text_to_speeches(translation, language)
+    # speeches = text_to_speeches(translation, language)
+    # output_dir = "downloaded_speeches"
+    # speech_path = download_speech_files(speeches, output_dir)
     
-    # with open(speak, 'rb') as audio_file:
-    #     encoded_audio = base64.b64encode(audio_file.read()).decode('utf-8')
+    story_data = {
+        'title': title,
+        'story': story_info,
+        'translation': translation
+    }
+    json_blob = bucket.blob(f'{title_eng}/{title_eng}.json')
+    json_blob.upload_from_string(json.dumps(story_data), content_type='application/json')
+    json_url = json_blob.generate_signed_url(timedelta(days=365))
     
-    # return jsonify({
-    #     'story': story_info,  # prefix-match hit
-    #     'translation': translation,
-    #     'image': image,
-    #     'audio': encoded_audio
-    # })
-    image_url = []  # URL expiration time in seconds
-    for i, img_data in enumerate(image):
-        blob = bucket.blob(f"image_{i}.png")
-        blob.upload_from_string(img_data, content_type='image/png')
-        image_url.append.blob.generate_signed_url(expiration=3600)
-    return jsonify({'story_download_url': image_url})
+    
+    image_url = []
+    for i, img in enumerate(image):
+        img_bytes = BytesIO()
+        try:
+            img.save(img_bytes, format='PNG')
+        except Exception as e:
+            print(f"Error saving image {i}: {e}")
+            continue
+        img_bytes.seek(0)  # Move cursor to the beginning of the BytesIO object
+        blob = bucket.blob(f'{title_eng}/image_{i}.jpg')
+        blob.upload_from_file(img_bytes, content_type='image/jpg')
+        image_url.append(blob.generate_signed_url(timedelta(days=365)))
+    
+    # mp3_urls = []
+    # for speech_file in speech_path:
+    #     blob = bucket.blob(speech_file)
+    #     blob.upload_from_filename(speech_file)
+        
+    #     mp3_url = blob.public_url
+    #     mp3_token = blob.generate_signed_url(timedelta(days=365))
+        
+    #     mp3_urls.append(mp3_url)
+        
+        
+    return jsonify({'story': json_url,'image_urls': image_url})
+    # return jsonify({'speech': mp3_urls})
+    # return jsonify({'story': json_url,'image_urls': image_url,'speech': mp3_urls})
 
 if __name__ == "__main__":
     app.run(debug=True, port=5001)

@@ -1,3 +1,4 @@
+<!-- 會有錯誤訊息無法回傳 -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -92,38 +93,12 @@
             })
             .then(response => response.json())
             .then(data => {
-              // 顯示故事
-            const storyDiv = document.createElement('div');
-            storyDiv.innerHTML = `<h3>Story:</h3><p>${data.story}</p>`;
-            document.body.appendChild(storyDiv);
-        
-              // 顯示翻譯
-            const translationDiv = document.createElement('div');
-            translationDiv.innerHTML = `<h3>Translation:</h3><p>${data.translation}</p>`;
-            document.body.appendChild(translationDiv);
-
             console.log(data.story_download_url);
             var urlsDiv = document.getElementById('urls');
             data.story_download_url.forEach(url => {
               var urlElement = document.createElement('p');
               urlElement.textContent = url;
               urlsDiv.appendChild(urlElement);
-    
-              // 顯示圖片
-            const imageDiv = document.createElement('div');
-            imageDiv.innerHTML = '<h3>Images:</h3>';
-            document.body.appendChild(imageDiv);
-        
-            data.image.forEach(base64Image => {
-                const img = document.createElement('img');
-                img.src = `data:image/png;base64,${base64Image}`;
-                imageDiv.appendChild(img);
-            });
-            // 播放聲音
-            const audioDiv = document.createElement('div');
-            audioDiv.innerHTML = '<h3>Audio:</h3><audio controls><source src="data:audio/mpeg;base64,' + data.audio + '" type="audio/mpeg">Your browser does not support the audio element.</audio>';
-            document.body.appendChild(audioDiv);
-
             })
             .catch(error => {
             console.error('Error:', error);
