@@ -187,7 +187,9 @@
   function displayStories(index) {
     const container = document.getElementById('section-container-spacer');
     container.innerHTML = `
-    <p>"${storyImages[index]}"</p>
+    <div class="col-xs-12">
+        <h2>${index.title || 'Project'}</h2>
+        <p>${index.text || 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'}</p>
     `;
   }
   function displayImage(index) {
