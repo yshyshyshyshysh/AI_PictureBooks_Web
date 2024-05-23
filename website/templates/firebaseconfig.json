@@ -1,4 +1,5 @@
 {
+    "type": "service_account",
     "apiKey": "AIzaSyAq9MFTflBccRelk4pElUHkkKwwdGq_xXs",
     "authDomain": "mywebsite-vivian.firebaseapp.com",
     "databaseURL": "https://mywebsite-vivian-default-rtdb.firebaseio.com",

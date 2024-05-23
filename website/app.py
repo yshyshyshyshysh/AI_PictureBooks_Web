@@ -7,9 +7,10 @@ from model.model import generate_story, text_translations, text_to_images, text_
 app = Flask(__name__)
 
 #  firebase
+#  需要權限
 # cred = credentials.Certificate("/home/webapp/AI_PictureBooks_Web/website/templates/firebaseconfig.json")  # replace with your service account key path
 # firebase_admin.initialize_app(cred, {
-#     'storageBucket': 'project-20240429.appspot.com'  # replace with your storage bucket name
+#     'storageBucket': 'project-20240429.appspot.com'
 # })
 # bucket = storage.bucket()
 
@@ -73,11 +74,12 @@ def submit():
     #     'image': image,
     #     'audio': encoded_audio
     # })
-    # download_url = blob.generate_signed_url(expiration=3600)  # URL expiration time in seconds
-    # for i, img_data in enumerate(image):
-    #     blob = bucket.blob(f"image_{i}.png")
-    #     blob.upload_from_string(img_data, content_type='image/png')
-    # return jsonify({'story_download_url': download_url})
+    image_url = []  # URL expiration time in seconds
+    for i, img_data in enumerate(image):
+        blob = bucket.blob(f"image_{i}.png")
+        blob.upload_from_string(img_data, content_type='image/png')
+        image_url.append.blob.generate_signed_url(expiration=3600)
+    return jsonify({'story_download_url': image_url})
 
 if __name__ == "__main__":
     app.run(debug=True, port=5001)

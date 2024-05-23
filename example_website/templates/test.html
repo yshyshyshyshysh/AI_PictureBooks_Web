@@ -8,66 +8,66 @@
     <meta content="description" name="description">
     <meta name="google" content="notranslate" />
     <meta content="Mashup templates have been developped by Orson.io team" name="author">
-  
+
     <!-- Disable tap highlight on IE -->
     <meta name="msapplication-tap-highlight" content="no">
     <title>Test Input</title>
 </head>
 <body>
 
-  <!-- Add your content of header -->
-  <header class="">
+<!-- Add your content of header -->
+<header class="">
     <div class="navbar navbar-default visible-xs">
-      <button type="button" class="navbar-toggle collapsed">
+        <button type="button" class="navbar-toggle collapsed">
         <span class="sr-only">Toggle navigation</span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
-      </button>
-      <a href="/" class="navbar-brand">An AI Storybook teller</a>
+        </button>
+        <a href="/" class="navbar-brand">An AI Storybook teller</a>
     </div>
 
     <nav class="sidebar">
-      <div class="navbar-collapse" id="navbar-collapse">
+        <div class="navbar-collapse" id="navbar-collapse">
         <div class="site-header hidden-xs">
-          <a class="site-brand" href="/" title="">
+            <a class="site-brand" href="/" title="">
             <img class="img-responsive site-logo" alt="" src="./assets/images/mashup-logo.svg">
             Mashup Template
-          </a>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+            </a>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
             tempor.</p>
         </div>
         <ul class="nav">
-          <li><a href="/" title="">Home</a></li>
-          <li><a href="/creator" title="">Story Creator</a></li>
-          <li><a href="/services" title="">Services</a></li>
-          <!-- <li><a href="/contact" title="">Login/Sign up</a></li> -->
-          <li id="loginLink"><a href="/contact" title="">Login/Sign up</a></li>
-          <li><a href="/components" title="">Components</a></li>
-          <!-- 其他連結... -->
-          <li id="logout-li" style="display: none;"><a href="#" id="logout-link">Log out</a></li>
+            <li><a href="/" title="">Home</a></li>
+            <li><a href="/creator" title="">Story Creator</a></li>
+            <li><a href="/services" title="">Services</a></li>
+            <!-- <li><a href="/contact" title="">Login/Sign up</a></li> -->
+            <li id="loginLink"><a href="/contact" title="">Login/Sign up</a></li>
+            <li><a href="/components" title="">Components</a></li>
+            <!-- 其他連結... -->
+            <li id="logout-li" style="display: none;"><a href="#" id="logout-link">Log out</a></li>
         </ul>
 
         <nav class="nav-footer">
-          <p class="nav-footer-social-buttons">
+            <p class="nav-footer-social-buttons">
             <a class="fa-icon" href="https://www.instagram.com/" title="">
-              <i class="fa fa-instagram"></i>
+                <i class="fa fa-instagram"></i>
             </a>
             <a class="fa-icon" href="https://dribbble.com/" title="">
-              <i class="fa fa-dribbble"></i>
+                <i class="fa fa-dribbble"></i>
             </a>
             <a class="fa-icon" href="https://twitter.com/" title="">
-              <i class="fa fa-twitter"></i>
+                <i class="fa fa-twitter"></i>
             </a>
-          </p>
-          <p>© Untitled | Website created with <a href="http://www.mashup-template.com/"
-              title="Create website with free html template">Mashup Template</a>/<a href="https://www.unsplash.com/"
-              title="Beautiful Free Images">Unsplash</a></p>
+            </p>
+            <p>© Untitled | Website created with <a href="http://www.mashup-template.com/"
+                title="Create website with free html template">Mashup Template</a>/<a href="https://www.unsplash.com/"
+                title="Beautiful Free Images">Unsplash</a></p>
         </nav>
-      </div>
+        </div>
     </nav>
-  </header>
-  <main class="" id="main-collapse">
+    </header>
+    <main class="" id="main-collapse">
     <form id="inputForm">
         <label for="title">Title:</label><br>
         <input type="text" id="title" class="form-control" name="title"><br>
@@ -104,10 +104,10 @@
 
             console.log(data.story_download_url);
             var urlsDiv = document.getElementById('urls');
-            data.story_download_url.forEach(url => {
-              var urlElement = document.createElement('p');
-              urlElement.textContent = url;
-              urlsDiv.appendChild(urlElement);
+                data.story_download_url.forEach(url => {
+                var urlElement = document.createElement('p');
+                urlElement.textContent = url;
+                urlsDiv.appendChild(urlElement);
     
               // 顯示圖片
             const imageDiv = document.createElement('div');

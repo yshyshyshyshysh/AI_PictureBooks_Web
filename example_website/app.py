@@ -14,6 +14,10 @@ def index():
 def page1():
     return render_template('page1.html')
 
+@app.route('/page1')
+def page1():
+    return render_template('page1.html')
+
 # @app.route('/get_results', methods=['POST'])
 # def get_results():
 #     # Get input data from frontend
