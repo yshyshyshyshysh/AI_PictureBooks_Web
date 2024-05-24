@@ -69,7 +69,7 @@ def submit():
     token = data.get('token')  # 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
 
 
-    
+
     # story_info = {'paragraph 1': "I was an ordinary boy, but one day I found a strange object in the forest. It was a toad's leg bone and it glowed with magic!", 'illustration 1': "A young boy holding a glowing toad's leg bone, standing in front of a giant tree. The background is filled with colorful leaves and flowers.", 'paragraph 2': 'When I touched the bone, I felt strange powers coursing through my body. Suddenly, I grew scales, wings, and a fiery breath!', 'illustration 2': 'A boy transformed into a dragon, standing on his hind legs with wings spread wide. He is surrounded by flames and smoke.', 'paragraph 3': 'Now I can breathe fire and fly through the skies! People call me the Spit Dragon because of my fiery breath. But sometimes I miss being a human boy.', 'illustration 3': 'A dragon flying over a village, with people looking up in amazement. The dragon has a sad expression on his face, longing for his former life as a human.', 'paragraph 4': "One day, I will find a way to turn back into a boy. Until then, I'll soar the skies and protect my forest home with my fiery breath!", 'illustration 4': 'A dragon perched on a branch of a tree, looking out over the landscape with a determined expression. The sun is setting in the background, casting warm colors across the scene.', 'title': 'I became a spit dragon'}
     title_eng = translate_to_eng(title)
     story_info = generate_story(title)
@@ -78,7 +78,7 @@ def submit():
     # speeches = text_to_speeches(translation, language)
     # output_dir = "downloaded_speeches"
     # speech_path = download_speech_files(speeches, output_dir)
-    
+
     story_data = {
         'title': title,
         'story': story_info,
@@ -87,8 +87,8 @@ def submit():
     json_blob = bucket.blob(f'{title_eng}/{title_eng}.json')
     json_blob.upload_from_string(json.dumps(story_data), content_type='application/json')
     json_url = json_blob.generate_signed_url(timedelta(days=365))
-    
-    
+
+
     image_url = []
     for i, img in enumerate(image):
         img_bytes = BytesIO()
@@ -101,34 +101,30 @@ def submit():
         blob = bucket.blob(f'{title_eng}/image_{i}.jpg')
         blob.upload_from_file(img_bytes, content_type='image/jpg')
         image_url.append(blob.generate_signed_url(timedelta(days=365)))
-    
+
     # mp3_urls = []
     # for speech_file in speech_path:
     #     blob = bucket.blob(speech_file)
     #     blob.upload_from_filename(speech_file)
-        
+
     #     mp3_url = blob.public_url
     #     mp3_token = blob.generate_signed_url(timedelta(days=365))
-        
-    #     mp3_urls.append(mp3_url)
-    
-    # log_blob = bucket.blob('story_logs.json')
-    
-    # if log_blob.exists():
-    #     log_data = json.loads(log_blob.download_as_text())
-    # else:
-    #     log_data = []
-        
-    # log_entry = {
-    #     'title': title,
-    #     'title_eng': title_eng,
-    #     'story_url': json_url,
-    #     'image_urls': image_url
-    # }
 
-    # log_data.append(log_entry)
-    # log_blob.upload_from_string(json.dumps(log_data), content_type='application/json')
-    
+    #     mp3_urls.append(mp3_url)
+
+    log_blob = bucket.blob('story_logs.json')
+
+    log_data = json.loads(log_blob.download_as_text()) if log_blob.exists() else []
+    log_entry = {
+        'title': title,
+        'title_eng': title_eng,
+        'story_url': json_url,
+        'image_urls': image_url
+    }
+
+    log_data.append(log_entry)
+    log_blob.upload_from_string(json.dumps(log_data), content_type='application/json')
+
     return jsonify({'story': json_url,'image_urls': image_url})
     # return jsonify({'speech': mp3_urls})
     # return jsonify({'story': json_url,'image_urls': image_url,'speech': mp3_urls})
