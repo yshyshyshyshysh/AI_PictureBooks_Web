@@ -10,3 +10,54 @@
 .input-group-append {
   margin-top: 10px; /* Adjust the margin as needed */
 }
+
+
+
+.grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin: 20px 0;
+}
+
+.grid-item {
+  position: relative;
+  width: calc(33.333% - 20px); /* 三欄布局，每欄間距20px */
+  box-sizing: border-box;
+}
+
+.grid-item img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 10px;
+}
+
+.project-description {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+  right: 10px;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  text-align: center;
+  padding: 10px;
+  border-radius: 5px;
+  text-decoration: none;
+}
+
+.project-description:hover {
+  background: rgba(0, 0, 0, 0.8);
+}
+
+.project-text-holder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.project-text-inner {
+  text-align: center;
+}
+

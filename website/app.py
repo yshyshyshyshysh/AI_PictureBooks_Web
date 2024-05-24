@@ -75,9 +75,9 @@ def submit():
     story_info = generate_story(title)
     translation = text_translations(story_info, language)
     image = text_to_images(story_info, token)
-    # speeches = text_to_speeches(translation, language)
-    # output_dir = "downloaded_speeches"
-    # speech_path = download_speech_files(speeches, output_dir)
+    speeches = text_to_speeches(translation, language)
+    output_dir = "downloaded_speeches"
+    speech_path = download_speech_files(speeches, output_dir)
 
     story_data = {
         'title': title,
@@ -102,15 +102,14 @@ def submit():
         blob.upload_from_file(img_bytes, content_type='image/jpg')
         image_url.append(blob.generate_signed_url(timedelta(days=365)))
 
-    # mp3_urls = []
-    # for speech_file in speech_path:
-    #     blob = bucket.blob(speech_file)
-    #     blob.upload_from_filename(speech_file)
+    mp3_urls = []
+    for speech_file in speech_path:
+        blob = bucket.blob(speech_file)
+        blob.upload_from_filename(speech_file)
 
-    #     mp3_url = blob.public_url
-    #     mp3_token = blob.generate_signed_url(timedelta(days=365))
+        mp3_token = blob.generate_signed_url(timedelta(days=365))
 
-    #     mp3_urls.append(mp3_url)
+        mp3_urls.append(mp3_token)
 
     log_blob = bucket.blob('story_logs.json')
 
@@ -119,15 +118,18 @@ def submit():
         'title': title,
         'title_eng': title_eng,
         'story_url': json_url,
-        'image_urls': image_url
+        'image_urls': image_url,
+        'speech_urls': mp3_token
     }
 
     log_data.append(log_entry)
     log_blob.upload_from_string(json.dumps(log_data), content_type='application/json')
+    
+    # https://firebasestorage.googleapis.com/v0/b/webapp-ecc1b.appspot.com/o/story_logs.json?alt=media&token=1560ce88-e76f-473f-a38d-d7caec27c511
 
-    return jsonify({'story': json_url,'image_urls': image_url})
+    # return jsonify({'story': json_url,'image_urls': image_url})
     # return jsonify({'speech': mp3_urls})
-    # return jsonify({'story': json_url,'image_urls': image_url,'speech': mp3_urls})
+    return jsonify({'story': json_url,'image_urls': image_url,'speech': mp3_token})
 
 if __name__ == "__main__":
     app.run(debug=True, port=5002)
