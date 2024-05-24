@@ -46,9 +46,9 @@
   text-decoration: none;
 }
 
-.project-description:hover {
+/* .project-description:hover {
   background: rgba(0, 0, 0, 0.8);
-}
+} */
 
 .project-text-holder {
   display: flex;
