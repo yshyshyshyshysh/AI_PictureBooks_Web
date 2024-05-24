@@ -30,7 +30,7 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-    <a href="./index.html" class="navbar-brand">Fuck Me</a>
+    <a href="./index.html" class="navbar-brand">Hi</a>
   </div>
 
   <nav class="sidebar">
@@ -73,13 +73,9 @@
 <main class="" id="main-collapse"><!-- Here-->
   <div class="container rounded bg-white mt-5 mb-5">
     <div class="row">
-      <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-        <img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
-        <span class="font-weight-bold" id="displayName">Edogaru</span>
-        <span class="text-black-50">isloggedin</span>
-        <span id="phoneNumber">123-456-7890</span>
-    </div>
-    
+        <div class="col-md-3 border-right">
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span class="font-weight-bold">Edogaru</span><span class="text-black-50">isloggedin</span><span> </span></div>
+        </div>
         <div class="col-md-5 border-right">
             <div class="p-3 py-5">
                 <div class="d-flex justify-content-between align-items-center mb-3">
@@ -137,12 +133,18 @@
 <!-- <script src="{{ url_for('static', filename='hello-world/public/controller/userStatus.js') }}"></script> -->
 <script>
   async function getUserInfo() {
-    // console.log("ii");
     const user = await retUserInfo();
-    // console.log("hihi", user);
-    // console.log("hii");
     console.log(user);
-    // if (user) {
+    
+}
+
+  getUserInfo();
+
+
+
+
+
+// if (user) {
         // document.getElementById('avatar').src = user.avatarURL;
         // document.getElementById('intro').innerText = user.intro;
         // console.log(user.avatarURL)
@@ -151,17 +153,6 @@
     // } else {
     //     console.log("User not found.");
     // }
-    const displayNameElement = document.getElementById('displayName');
-    const phoneNumberElement = document.getElementById('phoneNumber');
-// 設置displayName和phoneNumber的內容
-    displayNameElement.textContent = userInfo.displayName || 'No Display Name';
-    phoneNumberElement.textContent = userInfo.phoneNumber || 'No Phone Number';
-
-}
-
-getUserInfo();
-// 取得displayName和phoneNumber的元素
-
 
 // const username = localStorage.getItem("username");
 // const user = retUserInfo()
