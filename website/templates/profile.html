@@ -199,12 +199,9 @@ function handleSubmit() {
   const phoneNumber = document.getElementById('phoneInput').value;
   const bio = document.getElementById('bioInput').value;
   const pronoun = document.getElementById('pronounInput').value;
-
-  updateUserInfo(displayName, email, phoneNumber, bio, pronoun).then(() => {
-    setTimeout(function() {
+  setTimeout(function() {
       alert("Profile updated!");
-    }, 1000); // 延遲 1 秒顯示通知
-  });
+    }, 1000);
 }
 
 // function handleSubmit() {
@@ -220,7 +217,7 @@ function handleSubmit() {
 document.addEventListener('DOMContentLoaded', function() {
     const saveProfileButton = document.getElementById('saveProfileButton');
     saveProfileButton.addEventListener('click', handleSubmit);
-    alert("Profile updated!");
+    // alert("Profile updated!");
 });
 
 

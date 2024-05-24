@@ -14,15 +14,15 @@
 
 
 .grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* 自動填充，最小寬度300px */
+  gap: 20px; /* 每個項目之間的間距 */
   margin: 20px 0;
 }
 
 .grid-item {
   position: relative;
-  width: calc(33.333% - 20px); /* 三欄布局，每欄間距20px */
+  width: 100%; /* 確保每個項目寬度為父容器的100% */
   box-sizing: border-box;
 }
 
@@ -46,9 +46,6 @@
   text-decoration: none;
 }
 
-/* .project-description:hover {
-  background: rgba(0, 0, 0, 0.8);
-} */
 
 .project-text-holder {
   display: flex;
@@ -60,4 +57,5 @@
 .project-text-inner {
   text-align: center;
 }
+
 
