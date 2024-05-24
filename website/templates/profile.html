@@ -34,15 +34,14 @@
   </div>
 
   <nav class="sidebar">
-    <div class="navbar-collapse" id="navbar-collapse">
-      <div class="site-header hidden-xs">
-          <a class="site-brand" href="/" title="">
-            <img class="img-responsive site-logo" alt="" src="./assets/images/mashup-logo.svg">
-            Mashup Template
-          </a>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-        tempor.</p>
-      </div>
+    <div class="site-header hidden-xs">
+      <a class="site-brand" href="/" title="">
+        <img class="img-responsive site-logo" alt=""
+          src="{{ url_for('static', filename='assets/images/Stack of Books.png') }}">
+        Learn English by Storybook
+      </a>
+      <p>Powered by AI (LLAMA 2), we aim to seamlessly integrate storybooks and audio with multilingual audio support (40+ languages). Our objective is to facilitate efficient language acquisition for users worldwide.</p>
+    </div>
       <ul class="nav">
         <li><a href="/" title="">Home</a></li>
         <li><a href="/creator" title="">Story Creator</a></li>
@@ -72,50 +71,50 @@
 </header>
 <main class="" id="main-collapse"><!-- Here-->
   <div class="container rounded bg-white mt-5 mb-5">
-    <div class="row">
-      <div class="d-flex flex-column align-items-center text-center p-3 py-5">
-        <img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
-        <span class="font-weight-bold" id="displayName"></span>
-        <!-- <span class="text-black-50">isloggedin</span> -->
-        
-        <span id="phoneNumber"></span>
-    </div>
-    
-        <div class="col-md-5 border-right">
-            <div class="p-3 py-5">
-                <div class="d-flex justify-content-between align-items-center mb-3">
-                    <h4 class="text-right">Profile Settings</h4>
-                </div>
-                <div class="row mt-2">
-                    <div class="col-md-6"><label class="labels">Name</label><input id="nameInput" type="text" class="form-control" placeholder="this will be the display name " value=""></div>
-                    <div class="col-md-6"><label class="labels">Email</label><input id="emailInput" input type="text" class="form-control" value="" placeholder="Email"></div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-md-12"><label class="labels">Mobile Number</label><input id="phoneInput" type="text" class="form-control" placeholder="enter phone number" value=""></div>
-                    <div class="col-md-12"><label class="labels">Bio</label><input id="bioInput" type="text" class="form-control" placeholder="Say something" value=""></div>
-                    <div class="col-md-12"><label class="labels">Pronoun</label><input id="pronounInput" type="text" class="form-control" placeholder="enter your prefered pronoun(s)" value=""></div>
-                </div>
-                <div class="mt-5 text-center">
-                  <button id="saveProfileButton" class="btn btn-primary profile-button" type="button">Save Profile</button>
-                  <button id="deleteProfileButton" type="button" class="btn btn-danger" id="deleteButton">Delete User</button>
-                </div>
-
-            </div>
-        </div>
-        <div class="col-md-4">
-            <div class="p-3 py-5">
-                <div class="d-flex justify-content-between align-items-center experience"><span>Edit Experience</span><span class="border px-3 p-1 add-experience"><i class="fa fa-plus"></i>&nbsp;Experience</span></div><br>
-                <div class="col-md-12"><label class="labels">Experience in Designing</label><input type="text" class="form-control" placeholder="experience" value=""></div> <br>
-                <div class="col-md-12"><label class="labels">Additional Details</label><input type="text" class="form-control" placeholder="additional details" value=""></div>
-            </div>
-        </div>
-    </div>
+      <div class="row">
+          <div class="col-md-4 d-flex flex-column align-items-center text-center p-3 py-5">
+              <img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg">
+              <span class="font-weight-bold mt-3" id="displayName"></span>
+              <span id="phoneNumber"></span>
+          </div>
+          
+          <div class="col-md-8">
+              <div class="p-5">
+                  <div class="d-flex justify-content-between align-items-center mb-3">
+                      <h4>Profile Settings</h4>
+                  </div>
+                  <div class="row mt-4">
+                      <div class="col-md-6 mb-3">
+                          <label class="labels">姓名</label>
+                          <input id="nameInput" type="text" class="form-control" placeholder="請輸入顯示的名稱" value="">
+                      </div>
+                      <div class="col-md-6 mb-3">
+                          <label class="labels">電子郵件</label>
+                          <input id="emailInput" input type="text" class="form-control" value="" placeholder="Email">
+                      </div>
+                  </div>
+                  <div class="row mt-3">
+                      <div class="col-md-12 mb-3">
+                          <label class="labels">手機號碼</label>
+                          <input id="phoneInput" type="text" class="form-control" placeholder="請輸入手機號碼" value="">
+                      </div>
+                      <div class="col-md-12 mb-3">
+                          <label class="labels">個人簡介</label>
+                          <input id="bioInput" type="text" class="form-control" placeholder="請輸入個人簡介" value="">
+                      </div>
+                      <div class="col-md-12 mb-3">
+                          <label class="labels">代名詞</label>
+                          <input id="pronounInput" type="text" class="form-control" placeholder="請輸入您的代名詞" value="">
+                      </div>
+                  </div>
+                  <div class="mt-5 text-center">
+                      <button id="saveProfileButton" class="btn btn-primary profile-button" type="button">儲存資料</button>
+                      <button id="deleteProfileButton" type="button" class="btn btn-danger profile-button" id="deleteButton">刪除使用者</button>
+                  </div>
+              </div>
+          </div>
+      </div>
   </div>
-  </div>
-  </div>
-  <!-- Add your site or app content here -->
-
-
 <div class="hero-full-wrapper">
   <div class="grid">
     <div class="gutter-sizer"></div>

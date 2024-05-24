@@ -122,22 +122,8 @@ def text_to_speeches(story_translations, lang):
     speeches = []
     for i in range(4):
         text = story_translations[i]
-        
+        speaker_path = '/home/webapp/AI_PictureBooks_Web/website/model/speaker.mp3'
         speech_file_path = f"/home/webapp/AI_PictureBooks_Web/website/model/speech/{paragraph_keys[i]}.mp3"
-        tts.tts_to_file(text=text, file_path=speech_file_path, speaker_wav="speaker.mp3", language=lang)
+        tts.tts_to_file(text=text, file_path=speech_file_path, speaker_wav=speaker_path, language=lang)
         speeches.append(speech_file_path)
     return speeches
-
-import shutil
-def download_speech_files(story_speeches, output_dir):
-    import os
-    if not os.path.exists(output_dir):
-        os.makedirs(output_dir)
-    sp_path = []
-    for speech_file in story_speeches:
-        shutil.copy(speech_file, output_dir)
-        print(f"Speech file '{speech_file}' downloaded to: {output_dir}")
-        p = f'{output_dir}/{speech_file}'
-        sp_path.append.p
-    
-    return sp_path
