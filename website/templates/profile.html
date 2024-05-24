@@ -94,7 +94,9 @@
                     <div class="col-md-12"><label class="labels">Bio</label><input type="text" class="form-control" placeholder="Say something" value=""></div>
                     <div class="col-md-12"><label class="labels">Pronoun</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div>
                 </div>
-                <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Save Profile</button></div>
+                <div class="mt-5 text-center">
+                  <button class="btn btn-primary profile-button" type="button" onclick="handleSubmit()">Save Profile</button>
+                </div>
             </div>
         </div>
         <div class="col-md-4">
@@ -150,6 +152,47 @@
 
     
     
+}
+
+
+function handleSubmit() {
+  const displayName = document.querySelector('input[placeholder="this will be the display name "]').value;
+  const email = document.getElementById('emailInput').value;
+  const phoneNumber = document.querySelector('input[placeholder="enter phone number"]').value;
+  const bio = document.querySelector('input[placeholder="Say something"]').value;
+  const pronoun = document.querySelector('input[placeholder="enter address line 2"]').value;
+
+  updateUserInfo(displayName, email, phoneNumber, bio, pronoun);
+}
+
+function updateUserInfo(displayName, email, phoneNumber, bio, pronoun) {
+  const user = await retUserInfo();
+  retUserInfo().then(user => {
+      user.updateProfile({
+          displayName: displayName,
+      }).then(function() {
+          // Update successful.
+          console.log("User profile updated successfully.");
+      }).catch(function(error) {
+          // An error happened.
+          console.error("Error updating user profile:", error);
+      });
+      
+      // Update email, phone number, bio, pronoun
+      const userRef = firebase.database().ref('users/' + user.uid);
+      userRef.update({
+          email: email,
+          phoneNumber: phoneNumber,
+          bio: bio,
+          pronoun: pronoun
+      }).then(function() {
+          console.log("User info updated successfully.");
+      }).catch(function(error) {
+          console.error("Error updating user info:", error);
+      });
+  }).catch(error => {
+      console.error(error);
+  });
 }
 
   getUserInfo();
