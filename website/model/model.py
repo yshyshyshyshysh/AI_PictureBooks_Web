@@ -38,18 +38,18 @@ def text_generation(title):
         Paragraph 4:
         Illustration 4:
     '''
-    # while True:
-    #     print('RUN THE MODEL!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-    #     response = lcpp_llm(prompt=prompt, max_tokens=1200, temperature=0.5, top_p=0.95, repeat_penalty=1.2, top_k=150, echo=True)
-    #     full_story = response["choices"][0]["text"]
-    #     if all(full_story.lower().count(word.lower()) == 2 for word in split_words):
-    #         return full_story
-    print('RUN THE MODEL!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
-    response = lcpp_llm(prompt=prompt, max_tokens=1200, temperature=0.5, top_p=0.95, repeat_penalty=1.2, top_k=150, echo=True)
-    full_story = response["choices"][0]["text"]
-    for word in split_words:
-        full_story.lower().count(word.lower()) 
-    return full_story
+    while True:
+        print('RUN THE MODEL!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+        response = lcpp_llm(prompt=prompt, max_tokens=1200, temperature=0.5, top_p=0.95, repeat_penalty=1.2, top_k=150, echo=True)
+        full_story = response["choices"][0]["text"]
+        if all(full_story.lower().count(word.lower()) == 2 for word in split_words):
+            return full_story
+    # print('RUN THE MODEL!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
+    # response = lcpp_llm(prompt=prompt, max_tokens=1200, temperature=0.5, top_p=0.95, repeat_penalty=1.2, top_k=150, echo=True)
+    # full_story = response["choices"][0]["text"]
+    # for word in split_words:
+    #     full_story.lower().count(word.lower()) 
+    # return full_story
 
 def extract_story_info(text):
     split_words = ['paragraph 1:', 'illustration 1:', 'paragraph 2:', 'illustration 2:', 'paragraph 3:', 'illustration 3:', 'paragraph 4:', 'illustration 4:']
