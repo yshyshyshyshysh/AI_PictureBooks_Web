@@ -36,7 +36,8 @@
       <div class="navbar-collapse" id="navbar-collapse">
         <div class="site-header hidden-xs">
           <a class="site-brand" href="/" title="">
-            <img class="img-responsive site-logo" alt="" src="{{ url_for('static', filename='assets/images/Stack of Books.png') }}">
+            <img class="img-responsive site-logo" alt=""
+              src="{{ url_for('static', filename='assets/images/Stack of Books.png') }}">
             Learn English by Storybook
           </a>
           <p>Powered by AI (LLAMA 2), we aim to combine interesting storybooks and audio support-ing up to 40 different
@@ -81,24 +82,24 @@
         <div class="gutter-sizer"></div>
         <div class="grid-sizer"></div>
 
-      
-        
+
+
         <!-- 更多的故事图片 -->
-      </div> 
+      </div>
     </div>
 
- 
-    <style>
 
+    <style>
       .sidebar {
         animation: transitionIn 0.75s;
       }
-      
+
       @keyframes transitionIn {
         from {
           opacity: 0;
           transform: translateY(10px);
         }
+
         to {
           opacity: 1;
           transform: translateX(0);
@@ -118,89 +119,89 @@
   <script src="{{ url_for('static', filename='hello-world/public/controller/userStatus.js') }}"></script>
   <script src="{{ url_for('static', filename='hello-world/public/controller/insert.js') }}"></script>
 
-  
+
   <script>
-      // // Function to update login link to username and avatar
-      // function updateUser(username) {
-      //     var nav = document.querySelector('.nav'); // Select the navigation bar with class "nav"
-      //     var loginLink = nav.querySelector('#loginLink'); // Select the login link within the navigation bar
-      //     loginLink.innerHTML = `<a href="./profile.html" title="${username}">${username}</a>`;
-      // }
+    // // Function to update login link to username and avatar
+    // function updateUser(username) {
+    //     var nav = document.querySelector('.nav'); // Select the navigation bar with class "nav"
+    //     var loginLink = nav.querySelector('#loginLink'); // Select the login link within the navigation bar
+    //     loginLink.innerHTML = `<a href="./profile.html" title="${username}">${username}</a>`;
+    // }
 
-      // // Check if the user is logged in
-      // var isLoggedIn = true; // Replace with your actual logic to check if user is logged in
+    // // Check if the user is logged in
+    // var isLoggedIn = true; // Replace with your actual logic to check if user is logged in
 
-      // // If user is logged in, update the navigation bar with username and avatar
-      // if (isLoggedIn) {
-      //     var username = "JohnDoe"; // Replace with the actual username
-      //     updateUser(username);
-      // }
+    // // If user is logged in, update the navigation bar with username and avatar
+    // if (isLoggedIn) {
+    //     var username = "JohnDoe"; // Replace with the actual username
+    //     updateUser(username);
+    // }
   </script>
-  
+
   <script>
     // Function to get published stories and update images
- 
+
     function updateStoryImages() {
       getPublishedStories().then(data => {
-          if (!data) {
-              console.error('No data received from Firebase');
-              return;
+        if (!data) {
+          console.error('No data received from Firebase');
+          return;
+        }
+
+        const stories = Object.values(data);
+        console.log('Fetched stories:', stories); // 调试信息
+        const gridContainer = document.querySelector('.grid');
+
+        stories.forEach((story, index) => {
+          const gridItem = document.createElement('div');
+          gridItem.classList.add('grid-item');
+          gridItem.setAttribute('data-id', story.signature);
+
+          const img = document.createElement('img');
+          img.classList.add('img-responsive', 'story-image');
+          img.alt = story.title;
+
+          const imageUrl = story.image;
+          if (imageUrl) {
+            img.src = imageUrl;
+          } else {
+            console.error(`No picture found for story at index ${index}, story:`, story); // 调试信息
+            img.src = '{{ url_for('static', filename='assets / images /default.jpg') }}'; // 使用默认图片
           }
-  
-          const stories = Object.values(data);
-          console.log('Fetched stories:', stories); // 调试信息
-          const gridContainer = document.querySelector('.grid');
-  
-          stories.forEach((story, index) => {
-              const gridItem = document.createElement('div');
-              gridItem.classList.add('grid-item');
-              gridItem.setAttribute('data-id', story.signature);
-  
-              const img = document.createElement('img');
-              img.classList.add('img-responsive', 'story-image');
-              img.alt = story.title;
-  
-              const imageUrl = story.image;
-              if (imageUrl) {
-                  img.src = imageUrl;
-              } else {
-                  console.error(`No picture found for story at index ${index}, story:`, story); // 调试信息
-                  img.src = '{{ url_for('static', filename='assets/images/default.jpg') }}'; // 使用默认图片
-              }
-  
-              const projectDescription = document.createElement('a');
-              projectDescription.href ="/project"; // 使用 # 作为临时链接
-              projectDescription.classList.add('project-description');
-              
-              projectDescription.addEventListener('click', function() {
-                localStorage.setItem('selectedStory', JSON.stringify(story));
-                window.location.href = '/project.html';
-              });
-  
-              const projectTextHolder = document.createElement('div');
-              projectTextHolder.classList.add('project-text-holder');
-  
-              const projectTextInner = document.createElement('div');
-              projectTextInner.classList.add('project-text-inner');
-  
-              const h3 = document.createElement('h3');
-              h3.textContent = story.title;
-  
-              const p = document.createElement('p');
-              p.textContent = 'Discover more';
-  
-              projectTextInner.appendChild(h3);
-              projectTextInner.appendChild(p);
-              projectTextHolder.appendChild(projectTextInner);
-              projectDescription.appendChild(projectTextHolder);
-  
-              gridItem.appendChild(img);
-              gridItem.appendChild(projectDescription);
-              gridContainer.appendChild(gridItem);
+
+          const projectDescription = document.createElement('a');
+          projectDescription.href = "/project"; // 使用 # 作为临时链接
+          projectDescription.classList.add('project-description');
+
+          projectDescription.addEventListener('click', function () {
+            localStorage.setItem('selectedStory', JSON.stringify(story));
+            window.location.href = '/project.html';
           });
 
+          const projectTextHolder = document.createElement('div');
+          projectTextHolder.classList.add('project-text-holder');
+
+          const projectTextInner = document.createElement('div');
+          projectTextInner.classList.add('project-text-inner');
+
+          const h3 = document.createElement('h3');
+          h3.textContent = story.title;
+
+          const p = document.createElement('p');
+          p.textContent = 'Discover more';
+
+          projectTextInner.appendChild(h3);
+          projectTextInner.appendChild(p);
+          projectTextHolder.appendChild(projectTextInner);
+          projectDescription.appendChild(projectTextHolder);
+
+          gridItem.appendChild(img);
+          gridItem.appendChild(projectDescription);
+          gridContainer.appendChild(gridItem);
+        });
+
       }).catch(error => {
-          console.error('Error fetching stories:', error); // 调试信息
+        console.error('Error fetching stories:', error); // 调试信息
       });
     }
 
@@ -216,28 +217,28 @@
       navbarToggleSidebar();
       navActivePage();
       masonryBuild();
-//       const tmpAudio = "https://firebasestorage.googleapis.com/v0/b/mywebsite-vivian.appspot.com/o/audio%2F1716360291168-Franc%20Moody%20-%20Move%20Me%20%5BTubeRipper.com%5D.mp3?alt=media&token=d7136cdb-61d2-4ff1-9ed0-494110c803cb"
-//       const tmpImg1 = "https://firebasestorage.googleapis.com/v0/b/project-20240429.appspot.com/o/1716365081038-%E4%B8%8B%E8%BC%89%20(1).jfif?alt=media&token=331ab6f2-f194-4616-b444-cb3b2530db2b";
-//       const tmpImg2 = "https://firebasestorage.googleapis.com/v0/b/project-20240429.appspot.com/o/1716232430090-%E4%B8%8B%E8%BC%89.jfif?alt=media&token=0e54a6a3-6871-4b2f-85b1-20befd007045";
-//       const imgList = [tmpImg1, tmpImg2];
-//       const soundList = [tmpAudio, tmpAudio];
-//       const textList = ["Text 1", "Text 2"];
-//       const translationtextList =  ["Text 1", "Text 2"];
-//       const stories = formatStories(soundList, textList, translationtextList, imgList);
-//       const imageURL = tmpImg1;
-//       // 使用者 ID
-//       const ID = "id4"
-//       const item = formatItem("Title", "Language", imageURL, stories, ID);
-//       const token = "-NbL96fO7UBm_LN8vDws";
+      //       const tmpAudio = "https://firebasestorage.googleapis.com/v0/b/mywebsite-vivian.appspot.com/o/audio%2F1716360291168-Franc%20Moody%20-%20Move%20Me%20%5BTubeRipper.com%5D.mp3?alt=media&token=d7136cdb-61d2-4ff1-9ed0-494110c803cb"
+      //       const tmpImg1 = "https://firebasestorage.googleapis.com/v0/b/project-20240429.appspot.com/o/1716365081038-%E4%B8%8B%E8%BC%89%20(1).jfif?alt=media&token=331ab6f2-f194-4616-b444-cb3b2530db2b";
+      //       const tmpImg2 = "https://firebasestorage.googleapis.com/v0/b/project-20240429.appspot.com/o/1716232430090-%E4%B8%8B%E8%BC%89.jfif?alt=media&token=0e54a6a3-6871-4b2f-85b1-20befd007045";
+      //       const imgList = [tmpImg1, tmpImg2];
+      //       const soundList = [tmpAudio, tmpAudio];
+      //       const textList = ["Text 1", "Text 2"];
+      //       const translationtextList =  ["Text 1", "Text 2"];
+      //       const stories = formatStories(soundList, textList, translationtextList, imgList);
+      //       const imageURL = tmpImg1;
+      //       // 使用者 ID
+      //       const ID = "id4"
+      //       const item = formatItem("Title", "Language", imageURL, stories, ID);
+      //       const token = "-NbL96fO7UBm_LN8vDws";
 
-// publishStories(token, item);
-// getPublishedStories().then(data => {
-//     console.log(data);
-// });
+      // publishStories(token, item);
+      // getPublishedStories().then(data => {
+      //     console.log(data);
+      // });
 
-// newStories(ID, item).then(key => {
-//     console.log("Unique key:", key);
-// });
+      // newStories(ID, item).then(key => {
+      //     console.log("Unique key:", key);
+      // });
 
       const isLoggedIn = localStorage.getItem("username");
 
@@ -266,27 +267,27 @@
     });
 
     // Function to update login link with username
-      // async function updateLoginLink() {
+    // async function updateLoginLink() {
 
-      // }
-      // window.addEventListener('pageshow', async function(event) {
-      //   alert("k");
-      //   const isLoggedIn = localStorage.getItem("username");
-      //   if (isLoggedIn) {
-      //       const user = await getUser(); // Assuming getUser retrieves the current user's details
-      //       if (user && user.email) {
-      //           const loginLink = document.querySelector('#loginLink');
+    // }
+    // window.addEventListener('pageshow', async function(event) {
+    //   alert("k");
+    //   const isLoggedIn = localStorage.getItem("username");
+    //   if (isLoggedIn) {
+    //       const user = await getUser(); // Assuming getUser retrieves the current user's details
+    //       if (user && user.email) {
+    //           const loginLink = document.querySelector('#loginLink');
 
-      //           loginLink.innerHTML = `<a href="./profile.html" title="${username}">${username}</a>`;
-      //       }
-      //   }
-      //     // Check if the event's persisted property is true
-      //     // This indicates that the page is being loaded from the cache
-      //     if (event.persisted) {
-      //         // Re-run the function to update the login link
-      //         await updateLoginLink();
-      //     }
-      // });
+    //           loginLink.innerHTML = `<a href="./profile.html" title="${username}">${username}</a>`;
+    //       }
+    //   }
+    //     // Check if the event's persisted property is true
+    //     // This indicates that the page is being loaded from the cache
+    //     if (event.persisted) {
+    //         // Re-run the function to update the login link
+    //         await updateLoginLink();
+    //     }
+    // });
   </script>
 
   <!-- Google Analytics: change UA-XXXXX-X to be your site's ID 
@@ -303,7 +304,7 @@
 </script>
 
 -->
-<script src="{{ url_for('static', filename='js/main.85741bff.js') }}"></script>
+  <script src="{{ url_for('static', filename='js/main.85741bff.js') }}"></script>
 </body>
 
 </html>
