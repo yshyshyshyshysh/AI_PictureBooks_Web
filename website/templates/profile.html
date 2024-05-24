@@ -96,7 +96,9 @@
                 </div>
                 <div class="mt-5 text-center">
                   <button id="saveProfileButton" class="btn btn-primary profile-button" type="button">Save Profile</button>
+                  <button id="deleteProfileButton" type="button" class="btn btn-danger" id="deleteButton">Delete User</button>
                 </div>
+
             </div>
         </div>
         <div class="col-md-4">
@@ -154,7 +156,7 @@
 
 
     emailInput.value = user.email;
-    emailInput.value = user.email;
+    nameInput.value = user.displayName;
 
     // 設置displayName和phoneNumber的內容
     displayNameElement.textContent = user.displayName || 'No Display Name';
@@ -166,6 +168,7 @@ function updateUserInfo(displayName, email, phoneNumber, bio, pronoun) {
   retUserInfo().then(user => {
       user.updateProfile({
           displayName: displayName,
+          phoneNumber: phoneNumber
       }).then(function() {
           // Update successful.
           console.log("User profile updated successfully.");
@@ -199,9 +202,16 @@ function handleSubmit() {
   const phoneNumber = document.getElementById('phoneInput').value;
   const bio = document.getElementById('bioInput').value;
   const pronoun = document.getElementById('pronounInput').value;
+
+  // updateUserInfo(displayName, email, phoneNumber, bio, pronoun).then(() => {
+  //   setTimeout(function() {
+  //     alert("Profile updated!");
+  //   }, 1000); // 延遲 1 秒顯示通知
+  // });
+  alert("Profile updated!");
   setTimeout(function() {
-      alert("Profile updated!");
-    }, 1000);
+    updateUserInfo(displayName, email, phoneNumber, bio, pronoun);
+    }, 500); // 延遲 1 秒顯示通知
 }
 
 // function handleSubmit() {
