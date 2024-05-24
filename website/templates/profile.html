@@ -151,16 +151,16 @@
     // } else {
     //     console.log("User not found.");
     // }
+    const displayNameElement = document.getElementById('displayName');
+    const phoneNumberElement = document.getElementById('phoneNumber');
+// 設置displayName和phoneNumber的內容
+    displayNameElement.textContent = userInfo.displayName || 'No Display Name';
+    phoneNumberElement.textContent = userInfo.phoneNumber || 'No Phone Number';
+
 }
 
 getUserInfo();
 // 取得displayName和phoneNumber的元素
-const displayNameElement = document.getElementById('displayName');
-const phoneNumberElement = document.getElementById('phoneNumber');
-
-// 設置displayName和phoneNumber的內容
-displayNameElement.textContent = userInfo.displayName || 'No Display Name';
-phoneNumberElement.textContent = userInfo.phoneNumber || 'No Phone Number';
 
 
 // const username = localStorage.getItem("username");
