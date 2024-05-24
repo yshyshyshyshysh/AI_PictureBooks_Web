@@ -12,6 +12,8 @@ import os
 import json
 from datetime import timedelta
 import shutil
+
+
 app = Flask(__name__)
 
 #  firebase
@@ -95,7 +97,7 @@ def submit():
         except Exception as e:
             print(f"Error saving image {i}: {e}")
             continue
-        img_bytes.seek(0)  # Move cursor to the beginning of the BytesIO object
+        img_bytes.seek(0)
         blob = bucket.blob(f'{title_eng}/image_{i}.jpg')
         blob.upload_from_file(img_bytes, content_type='image/jpg')
         image_url.append(blob.generate_signed_url(timedelta(days=365)))

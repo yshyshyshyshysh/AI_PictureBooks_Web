@@ -277,27 +277,34 @@
 
             
             // 註冊
-            function register(email, password) {
-                firebase
-                    .auth()
-                    .createUserWithEmailAndPassword(email, password)
-                    .then(result => {
-                        // 寄送驗證信 (仍可登入)
-                        verifyEmail(email);
-                        alert("註冊成功！我們寄了一封信 請核查您的信箱已進行登入!")
-                    }).catch(function (error) {
-                        // 在此處可以跳轉頁面, 或是將錯誤訊息注入登入頁面
-                        alert("註冊失敗: " + error.message);
-                    });
-            }
+            // function register(email, password) {
+            //     firebase
+            //         .auth()
+            //         .createUserWithEmailAndPassword(email, password)
+            //         .then(result => {
+            //             // 寄送驗證信 (仍可登入)
+            //             verifyEmail(email);
+            //             alert("註冊成功！我們寄了一封信 請核查您的信箱已進行登入!")
+            //         }).catch(function (error) {
+            //             // 在此處可以跳轉頁面, 或是將錯誤訊息注入登入頁面
+            //             alert("註冊失敗: " + error.message);
+            //         });
+            // }
             register(emailInput, passwordInput);
+            setTimeout(function() {
+              localStorage.setItem("username", emailInput);
+              window.location.href = "/";
+            }, 2000);
+            // window.location.href = "/";
+
+            // localStorage.setItem("username", emailInput);
             // Call the register function
             // register(emailInput, passwordInput)
             //     .then(() => {
             //         var message = "Sign up successfully! Email: " + emailInput;
             //         alert(message);
                     
-            //         localStorage.setItem("username", emailInput);
+            
 
 
 
@@ -313,7 +320,7 @@
                   //   .catch(error => {
                   //     console.error('Error sending verification email:', error);
                   //   });
-                  //   window.location.href = "/";
+                    
                 // })
                 // .catch(error => {
                 //     console.error("Error registering user:", error);
