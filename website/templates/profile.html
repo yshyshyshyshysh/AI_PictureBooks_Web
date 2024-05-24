@@ -87,17 +87,8 @@
                 </div>
                 <div class="row mt-3">
                     <div class="col-md-12"><label class="labels">Mobile Number</label><input type="text" class="form-control" placeholder="enter phone number" value=""></div>
-                    <div class="col-md-12"><label class="labels">Address Line 1</label><input type="text" class="form-control" placeholder="enter address line 1" value=""></div>
-                    <div class="col-md-12"><label class="labels">Address Line 2</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div>
-                    <div class="col-md-12"><label class="labels">Postcode</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div>
-                    <div class="col-md-12"><label class="labels">State</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div>
-                    <div class="col-md-12"><label class="labels">Area</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div>
-                    <div class="col-md-12"><label class="labels">Email ID</label><input type="text" class="form-control" placeholder="enter email id" value=""></div>
-                    <div class="col-md-12"><label class="labels">Education</label><input type="text" class="form-control" placeholder="education" value=""></div>
-                </div>
-                <div class="row mt-3">
-                    <div class="col-md-6"><label class="labels">Country</label><input type="text" class="form-control" placeholder="country" value=""></div>
-                    <div class="col-md-6"><label class="labels">State/Region</label><input type="text" class="form-control" value="" placeholder="state"></div>
+                    <div class="col-md-12"><label class="labels">Bio</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div>
+                    <div class="col-md-12"><label class="labels">Pronoun</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div>
                 </div>
                 <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="button">Save Profile</button></div>
             </div>
@@ -139,22 +130,22 @@
 <script src="{{ url_for('static', filename='js/main.85741bff.js') }}"></script>
 <!-- <script src="{{ url_for('static', filename='hello-world/public/controller/userStatus.js') }}"></script> -->
 <script>
-  async function updateUserProfile(email) {
-    console.log("ii");
-    const user = await getUser(email);
-    console.log("hihi", user);
-    console.log("hii");
-    console.log(user);
-    if (user) {
-        // document.getElementById('avatar').src = user.avatarURL;
-        // document.getElementById('intro').innerText = user.intro;
-        // console.log(user.avatarURL)
-        // console.log(user.intro)
-        console.log(user);
-    } else {
-        console.log("User not found.");
-    }
-}
+//   async function updateUserProfile(email) {
+//     console.log("ii");
+//     const user = await getUser(email);
+//     console.log("hihi", user);
+//     console.log("hii");
+//     console.log(user);
+//     if (user) {
+//         // document.getElementById('avatar').src = user.avatarURL;
+//         // document.getElementById('intro').innerText = user.intro;
+//         // console.log(user.avatarURL)
+//         // console.log(user.intro)
+//         console.log(user);
+//     } else {
+//         console.log("User not found.");
+//     }
+// }
 
 // updateUserProfile("kevin.leaf1@gmail.c2om");
 
@@ -165,6 +156,7 @@
 //         console.log(user.avatarURL)
 //         console.log(user.intro)
 
+retUserInfo();//test
 
 </script>
 
