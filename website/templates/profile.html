@@ -86,16 +86,16 @@
                     <h4 class="text-right">Profile Settings</h4>
                 </div>
                 <div class="row mt-2">
-                    <div class="col-md-6"><label class="labels">Name</label><input type="text" class="form-control" placeholder="this will be the display name " value=""></div>
+                    <div class="col-md-6"><label class="labels">Name</label><input id="nameInput" type="text" class="form-control" placeholder="this will be the display name " value=""></div>
                     <div class="col-md-6"><label class="labels">Email</label><input id="emailInput" input type="text" class="form-control" value="" placeholder="Email"></div>
                 </div>
                 <div class="row mt-3">
-                    <div class="col-md-12"><label class="labels">Mobile Number</label><input type="text" class="form-control" placeholder="enter phone number" value=""></div>
-                    <div class="col-md-12"><label class="labels">Bio</label><input type="text" class="form-control" placeholder="Say something" value=""></div>
-                    <div class="col-md-12"><label class="labels">Pronoun</label><input type="text" class="form-control" placeholder="enter address line 2" value=""></div>
+                    <div class="col-md-12"><label class="labels">Mobile Number</label><input id="phoneInput" type="text" class="form-control" placeholder="enter phone number" value=""></div>
+                    <div class="col-md-12"><label class="labels">Bio</label><input id="bioInput" type="text" class="form-control" placeholder="Say something" value=""></div>
+                    <div class="col-md-12"><label class="labels">Pronoun</label><input id="pronounInput" type="text" class="form-control" placeholder="enter your prefered pronoun(s)" value=""></div>
                 </div>
                 <div class="mt-5 text-center">
-                  <button class="btn btn-primary profile-button" type="button" onclick="handleSubmit()">Save Profile</button>
+                  <button id="saveProfileButton" class="btn btn-primary profile-button" type="button">Save Profile</button>
                 </div>
             </div>
         </div>
@@ -144,35 +144,24 @@
     const displayNameElement = document.getElementById('displayName');
     const phoneNumberElement = document.getElementById('phoneNumber');
 
+
+    emailInput.value = user.email;
     emailInput.value = user.email;
 
     // 設置displayName和phoneNumber的內容
     displayNameElement.textContent = user.displayName || 'No Display Name';
-    phoneNumberElement.textContent = user.phoneNumber || 'No Phone Number';
-
-    
-    
-}
-
-
-function handleSubmit() {
-  const displayName = document.querySelector('input[placeholder="this will be the display name "]').value;
-  const email = document.getElementById('emailInput').value;
-  const phoneNumber = document.querySelector('input[placeholder="enter phone number"]').value;
-  const bio = document.querySelector('input[placeholder="Say something"]').value;
-  const pronoun = document.querySelector('input[placeholder="enter address line 2"]').value;
-
-  updateUserInfo(displayName, email, phoneNumber, bio, pronoun);
+    phoneNumberElement.textContent = user.phoneNumber || 'No Phone Number'; 
 }
 
 function updateUserInfo(displayName, email, phoneNumber, bio, pronoun) {
-  const user = await retUserInfo();
+  // const user = await retUserInfo();
   retUserInfo().then(user => {
       user.updateProfile({
           displayName: displayName,
       }).then(function() {
           // Update successful.
           console.log("User profile updated successfully.");
+          getUserInfo();
       }).catch(function(error) {
           // An error happened.
           console.error("Error updating user profile:", error);
@@ -195,9 +184,109 @@ function updateUserInfo(displayName, email, phoneNumber, bio, pronoun) {
   });
 }
 
+
+function handleSubmit() {
+  const displayName = document.getElementById('nameInput').value;
+  const email = document.getElementById('emailInput').value;
+  const phoneNumber = document.getElementById('phoneInput').value;
+  const bio = document.getElementById('bioInput').value;
+  const pronoun = document.getElementById('pronounInput').value;
+
+  updateUserInfo(displayName, email, phoneNumber, bio, pronoun).then(() => {
+    setTimeout(function() {
+      alert("Profile updated!");
+    }, 1000); // 延遲 1 秒顯示通知
+  });
+}
+
+// function handleSubmit() {
+//   const displayName = document.querySelector('input[placeholder="this will be the display name "]').value;
+//   const email = document.getElementById('emailInput').value;
+//   const phoneNumber = document.querySelector('phoneInput').value;
+//   const bio = document.querySelector('bioInput').value;
+//   const pronoun = document.querySelector('pronounInput').value;
+
+//   updateUserInfo(displayName, email, phoneNumber, bio, pronoun);
+// }
+
+document.addEventListener('DOMContentLoaded', function() {
+    const saveProfileButton = document.getElementById('saveProfileButton');
+    saveProfileButton.addEventListener('click', handleSubmit);
+    alert("Profile updated!");
+});
+
+
+
   getUserInfo();
 
 
+
+//                       how to show stories|
+//                                          v
+
+  function updateStoryImages() {
+      getPublishedStories().then(data => {
+          if (!data) {
+              console.error('No data received from Firebase');
+              return;
+          }
+  
+          const stories = Object.values(data);
+          console.log('Fetched stories:', stories); // 调试信息
+          const gridContainer = document.querySelector('.grid');
+  
+          stories.forEach((story, index) => {
+              const gridItem = document.createElement('div');
+              gridItem.classList.add('grid-item');
+              gridItem.setAttribute('data-id', story.signature);
+  
+              const img = document.createElement('img');
+              img.classList.add('img-responsive', 'story-image');
+              img.alt = story.title;
+  
+              const imageUrl = story.image;
+              if (imageUrl) {
+                  img.src = imageUrl;
+              } else {
+                  console.error(`No picture found for story at index ${index}, story:`, story); // 调试信息
+                  img.src = '{{ url_for('static', filename='assets/images/default.jpg') }}'; // 使用默认图片
+              }
+  
+              const projectDescription = document.createElement('a');
+              projectDescription.href ="/project"; // 使用 # 作为临时链接
+              projectDescription.classList.add('project-description');
+              
+              projectDescription.addEventListener('click', function() {
+                localStorage.setItem('selectedStory', JSON.stringify(story));
+                window.location.href = '/project.html';
+              });
+  
+              const projectTextHolder = document.createElement('div');
+              projectTextHolder.classList.add('project-text-holder');
+  
+              const projectTextInner = document.createElement('div');
+              projectTextInner.classList.add('project-text-inner');
+  
+              const h3 = document.createElement('h3');
+              h3.textContent = story.title;
+  
+              const p = document.createElement('p');
+              p.textContent = 'Discover more';
+  
+              projectTextInner.appendChild(h3);
+              projectTextInner.appendChild(p);
+              projectTextHolder.appendChild(projectTextInner);
+              projectDescription.appendChild(projectTextHolder);
+  
+              gridItem.appendChild(img);
+              gridItem.appendChild(projectDescription);
+              gridContainer.appendChild(gridItem);
+          });
+
+      }).catch(error => {
+          console.error('Error fetching stories:', error); // 调试信息
+      });
+    }
 
 
 

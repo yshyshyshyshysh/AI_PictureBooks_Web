@@ -216,28 +216,28 @@
       navbarToggleSidebar();
       navActivePage();
       masonryBuild();
-      const tmpAudio = "https://firebasestorage.googleapis.com/v0/b/mywebsite-vivian.appspot.com/o/audio%2F1716360291168-Franc%20Moody%20-%20Move%20Me%20%5BTubeRipper.com%5D.mp3?alt=media&token=d7136cdb-61d2-4ff1-9ed0-494110c803cb"
-      const tmpImg1 = "https://firebasestorage.googleapis.com/v0/b/project-20240429.appspot.com/o/1716365081038-%E4%B8%8B%E8%BC%89%20(1).jfif?alt=media&token=331ab6f2-f194-4616-b444-cb3b2530db2b";
-      const tmpImg2 = "https://firebasestorage.googleapis.com/v0/b/project-20240429.appspot.com/o/1716232430090-%E4%B8%8B%E8%BC%89.jfif?alt=media&token=0e54a6a3-6871-4b2f-85b1-20befd007045";
-      const imgList = [tmpImg1, tmpImg2];
-      const soundList = [tmpAudio, tmpAudio];
-      const textList = ["Text 1", "Text 2"];
-      const translationtextList =  ["Text 1", "Text 2"];
-      const stories = formatStories(soundList, textList, translationtextList, imgList);
-      const imageURL = tmpImg1;
-      // 使用者 ID
-      const ID = "id4"
-      const item = formatItem("Title", "Language", imageURL, stories, ID);
-      const token = "-NbL96fO7UBm_LN8vDws";
+//       const tmpAudio = "https://firebasestorage.googleapis.com/v0/b/mywebsite-vivian.appspot.com/o/audio%2F1716360291168-Franc%20Moody%20-%20Move%20Me%20%5BTubeRipper.com%5D.mp3?alt=media&token=d7136cdb-61d2-4ff1-9ed0-494110c803cb"
+//       const tmpImg1 = "https://firebasestorage.googleapis.com/v0/b/project-20240429.appspot.com/o/1716365081038-%E4%B8%8B%E8%BC%89%20(1).jfif?alt=media&token=331ab6f2-f194-4616-b444-cb3b2530db2b";
+//       const tmpImg2 = "https://firebasestorage.googleapis.com/v0/b/project-20240429.appspot.com/o/1716232430090-%E4%B8%8B%E8%BC%89.jfif?alt=media&token=0e54a6a3-6871-4b2f-85b1-20befd007045";
+//       const imgList = [tmpImg1, tmpImg2];
+//       const soundList = [tmpAudio, tmpAudio];
+//       const textList = ["Text 1", "Text 2"];
+//       const translationtextList =  ["Text 1", "Text 2"];
+//       const stories = formatStories(soundList, textList, translationtextList, imgList);
+//       const imageURL = tmpImg1;
+//       // 使用者 ID
+//       const ID = "id4"
+//       const item = formatItem("Title", "Language", imageURL, stories, ID);
+//       const token = "-NbL96fO7UBm_LN8vDws";
 
-publishStories(token, item);
-getPublishedStories().then(data => {
-    console.log(data);
-});
+// publishStories(token, item);
+// getPublishedStories().then(data => {
+//     console.log(data);
+// });
 
-newStories(ID, item).then(key => {
-    console.log("Unique key:", key);
-});
+// newStories(ID, item).then(key => {
+//     console.log("Unique key:", key);
+// });
 
       const isLoggedIn = localStorage.getItem("username");
 

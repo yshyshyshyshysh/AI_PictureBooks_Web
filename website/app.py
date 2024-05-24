@@ -111,11 +111,27 @@ def submit():
     #     mp3_token = blob.generate_signed_url(timedelta(days=365))
         
     #     mp3_urls.append(mp3_url)
+    
+    # log_blob = bucket.blob('story_logs.json')
+    
+    # if log_blob.exists():
+    #     log_data = json.loads(log_blob.download_as_text())
+    # else:
+    #     log_data = []
         
-        
+    # log_entry = {
+    #     'title': title,
+    #     'title_eng': title_eng,
+    #     'story_url': json_url,
+    #     'image_urls': image_url
+    # }
+
+    # log_data.append(log_entry)
+    # log_blob.upload_from_string(json.dumps(log_data), content_type='application/json')
+    
     return jsonify({'story': json_url,'image_urls': image_url})
     # return jsonify({'speech': mp3_urls})
     # return jsonify({'story': json_url,'image_urls': image_url,'speech': mp3_urls})
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5001)
+    app.run(debug=True, port=5002)
