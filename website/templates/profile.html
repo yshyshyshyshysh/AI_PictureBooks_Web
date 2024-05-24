@@ -224,8 +224,8 @@ document.addEventListener('DOMContentLoaded', function() {
 //                       how to show stories|
 //                                          v
 
-  function myStoryImages() {
-      getPublishedStories().then(data => {
+  function myStoryImages(id) {
+      getMyStories(id).then(data => {
           if (!data) {
               console.error('No data received from Firebase');
               return;
@@ -287,7 +287,7 @@ document.addEventListener('DOMContentLoaded', function() {
           console.error('Error fetching stories:', error); // 调试信息
       });
     }
-
+    myStoryImages("id4")
 
 
 // if (user) {
