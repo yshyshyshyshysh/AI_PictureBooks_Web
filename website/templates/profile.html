@@ -87,7 +87,7 @@
                 </div>
                 <div class="row mt-2">
                     <div class="col-md-6"><label class="labels">Name</label><input type="text" class="form-control" placeholder="this will be the display name " value=""></div>
-                    <div class="col-md-6"><label class="labels">Email</label><input type="text" class="form-control" value="" placeholder="Email"></div>
+                    <div class="col-md-6"><label class="labels">Email</label><input id="emailInput" input type="text" class="form-control" value="" placeholder="Email"></div>
                 </div>
                 <div class="row mt-3">
                     <div class="col-md-12"><label class="labels">Mobile Number</label><input type="text" class="form-control" placeholder="enter phone number" value=""></div>
@@ -142,10 +142,13 @@
     const displayNameElement = document.getElementById('displayName');
     const phoneNumberElement = document.getElementById('phoneNumber');
 
-    // 設置displayName和phoneNumber的內容
-    displayNameElement.textContent = userInfo.displayName || 'No Display Name';
-    phoneNumberElement.textContent = userInfo.phoneNumber || 'No Phone Number';
+    emailInput.value = user.email;
 
+    // 設置displayName和phoneNumber的內容
+    displayNameElement.textContent = user.displayName || 'No Display Name';
+    phoneNumberElement.textContent = user.phoneNumber || 'No Phone Number';
+
+    
     
 }
 
