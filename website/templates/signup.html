@@ -40,18 +40,16 @@
       <div class="navbar-collapse" id="navbar-collapse">
         <div class="site-header hidden-xs">
           <a class="site-brand" href="/" title="">
-            <img class="img-responsive site-logo" alt="" src="/assets/images/mashup-logo.svg">
-            Mashup Template
+            <img class="img-responsive site-logo" alt=""
+              src="{{ url_for('static', filename='assets/images/logo.jpg') }}">
+              StoryVerse AI Hub
           </a>
-          <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-            tempor.</p>
+          <p>Powered by AI, we aim to seamlessly integrate picture books and audio with multilingual audio support (15+ languages). Our objective is to facilitate efficient language acquisition for users worldwide.</p>
         </div>
         <ul class="nav">
           <li><a href="/" title="">Home</a></li>
           <li><a href="/creator" title="">Story Creator</a></li>
-          <li><a href="/services" title="">Services</a></li>
           <li><a href="/contact" title="">Login/Sign up</a></li>
-          <li><a href="/components" title="">Components</a></li>
           <!-- 其他連結... -->
           <li id="logout-li" style="display: none;"><a href="#" id="logout-link">Log out</a></li>
         </ul>

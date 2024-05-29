@@ -7,7 +7,7 @@
 -   /: 探索頁面 (index.html)
 -   /signup: 註冊頁面 (signup.html)
 -   /contact: 登入頁面 (contact.html)
--   /test_input: 創作頁面 (submit.html)
+-   /creator: 創作頁面 (creator.html)
 -   /profile: 個人頁面 (profile.html)
 -   /project: 故事頁面 (project.html)
 
