@@ -15,7 +15,6 @@ if (isLoggedIn) {
 // 登出按鈕的點擊事件
 const logoutLink = document.getElementById("logout-link");
 logoutLink.addEventListener("click", function (event) {
-  signOut()
   event.preventDefault();
   // 清除本地存儲的登入狀態
   localStorage.removeItem("username");

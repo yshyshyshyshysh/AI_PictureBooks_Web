@@ -3,8 +3,7 @@ import getpass
 import base64
 from model.model import generate_story, text_translations, text_to_images, text_to_speeches, translate_to_eng
 import firebase_admin
-import google-cloud-firestore
-from firebase_admin import credentials, storage, firestore
+from firebase_admin import credentials, storage
 from io import BytesIO
 from PIL import Image
 import random
@@ -18,7 +17,7 @@ import shutil
 app = Flask(__name__)
 
 #  firebase
-cred = credentials.Certificate("/home/webapp/AI_PictureBooks_Web/website/templates/firebaseconfig.json")  # replace with your service account key path
+cred = credentials.Certificate("/home/webapp/AI_PictureBooks_Web/website/templates/firebaseconfig.json")
 firebase_admin.initialize_app(cred, {
     'storageBucket': 'mywebsite-vivian.appspot.com'
 })

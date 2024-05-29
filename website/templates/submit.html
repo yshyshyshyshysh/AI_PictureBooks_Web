@@ -2,7 +2,7 @@
 <html>
 <head>
     <link href="{{ url_for('static', filename='css/main.82cfd66e.css') }}" rel="stylesheet" />
-    <title>Image Generation</title>
+    <title>Create a picture book</title>
     
     <script>
     function submitForm() {
@@ -46,7 +46,7 @@
             <div class="site-header hidden-xs">
               <a class="site-brand" href="/" title="">
                 <img class="img-responsive site-logo" alt=""
-                  src="{{ url_for('static', filename='assets/images/Stack of Books.png') }}">
+                  src="{{ url_for('static', filename='assets/images/logo.jpg') }}">
                   StoryVerse AI Hub
               </a>
               <p>Powered by AI, we aim to seamlessly integrate picture books and audio with multilingual audio support (15+ languages). Our objective is to facilitate efficient language acquisition for users worldwide.</p>
@@ -76,7 +76,7 @@
       <main class="container">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
-                <h1>Image Generation</h1>
+                <h1>Create a picture book</h1>
                 <form onsubmit="submitForm(); return false;">
                     <div class="form-group">
                         <label for="title">Title:</label>
@@ -105,7 +105,8 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="token">Token:</label>
+                        <label for="token">User Access Token:</label> 
+                        <a href="https://huggingface.co/settings/tokens" target="_blank">Get from here</a><br>                      
                         <input type="text" id="token" name="token" class="form-control">
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
@@ -114,5 +115,6 @@
         </div>
     </main>
 </body>
+<script src="{{ url_for('static', filename='/hello-world/public/controller/auth.js') }}"></script>
 <script src="{{ url_for('static', filename='js/login.js') }}"></script>
 </html>
