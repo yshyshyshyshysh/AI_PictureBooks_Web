@@ -3,7 +3,7 @@ import getpass
 import base64
 from model.model import generate_story, text_translations, text_to_images, text_to_speeches, translate_to_eng
 import firebase_admin
-from firebase_admin import credentials, storage
+from firebase_admin import credentials, storage, firestore
 from io import BytesIO
 from PIL import Image
 import random
@@ -19,9 +19,10 @@ app = Flask(__name__)
 #  firebase
 cred = credentials.Certificate("/home/webapp/AI_PictureBooks_Web/website/templates/firebaseconfig.json")  # replace with your service account key path
 firebase_admin.initialize_app(cred, {
-    'storageBucket': 'webapp-ecc1b.appspot.com'
+    'storageBucket': 'mywebsite-vivian.appspot.com'
 })
 bucket = storage.bucket()
+
 
 """Define Flask routes"""
 
@@ -67,6 +68,8 @@ def submit():
     title = data.get('title')
     language = data.get('language')  # es
     token = data.get('token')  # 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
+    uid = data.get('uid')
+    storyToken = data.get('storyToken')
 
 
 
@@ -124,6 +127,7 @@ def submit():
     log_data.append(log_entry)
     log_blob.upload_from_string(json.dumps(log_data), content_type='application/json')
     
+    
     # https://firebasestorage.googleapis.com/v0/b/webapp-ecc1b.appspot.com/o/story_logs.json?alt=media&token=1560ce88-e76f-473f-a38d-d7caec27c511
 
     # return jsonify({'story': json_url,'image_urls': image_url})
@@ -131,4 +135,4 @@ def submit():
     return jsonify({'story': json_url,'image_urls': image_url,'speech': mp3_urls})
 
 if __name__ == "__main__":
-    app.run(debug=True, port=8000)
+    app.run(debug=True, port=5000)

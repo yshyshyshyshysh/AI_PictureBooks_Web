@@ -47,10 +47,10 @@
       </div>
       <ul class="nav">
         <li><a href="/" title="">Home</a></li>
-        <li><a href="/creator" title="">Story Creator</a></li>
-        <li><a href="/services" title="">Services</a></li>
-        <li><a href="/contact" title="">Login/Sign up</a></li>
-        <li><a href="/components" title="">Components</a></li>
+        <li><a href="/test_input" title="">Story Creator</a></li>
+        <!-- <li><a href="/services" title="">Services</a></li> -->
+        <li id = "loginLink"><a href="/contact" title="">Login/Sign up</a></li>
+        <!-- <li><a href="/components" title="">Components</a></li> -->
         <!-- 其他連結... -->
         <li id="logout-li" style="display: none;"><a href="#" id="logout-link">Log out</a></li>
       </ul>
@@ -84,10 +84,10 @@
       <div class="right-arrow arrow" onclick="showNextImage()">&gt;</div>
     </div>
     
+    <div id="translation-container">
+      <!-- 文字将动态加载到这里 -->
+    </div>
 
-    <p> Duis aute irure dolor in reprehenderit in voluptate velit esse
-    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
     <div id="audio-container">
       <!-- 音檔将动态加载到这里 -->
@@ -109,7 +109,7 @@
 <script src="{{ url_for('static', filename='hello-world/public/controller/config.js') }}"></script>
 <script src="{{ url_for('static', filename='hello-world/public/controller/userStatus.js') }}"></script>
 <script src="{{ url_for('static', filename='hello-world/public/controller/insert.js') }}"></script>
-
+<script src="{{ url_for('static', filename='js/login.js') }}"></script>
 <script src="{{ url_for('static', filename='js/main.85741bff.js') }}"></script>
 <script>
   document.addEventListener("DOMContentLoaded", function (event) {
@@ -145,11 +145,15 @@
   function showNextImage() {
     currentImageIndex = (currentImageIndex + 1) % storyImages.length;
     displayImage(currentImageIndex);
+    updateAudio(currentImageIndex);
+    updateTranslation(currentImageIndex);
   }
 
   function showPreviousImage() {
     currentImageIndex = (currentImageIndex - 1 + storyImages.length) % storyImages.length;
     displayImage(currentImageIndex);
+    updateAudio(currentImageIndex);
+    updateTranslation(currentImageIndex);
   }
 
 
@@ -157,6 +161,7 @@
   let currentImageIndex = 0;
   let storyImages = [];
   let storyAudios = [];
+  let storyWord = [];
 
 
   function loadStory() {
@@ -165,26 +170,18 @@
     if (story && story.stories) {
       storyImages = story.stories.map(paragraph => paragraph.img);
       storyAudios = story.stories.map(paragraph => paragraph.soundtrack);
-      storyWord = story.stories.map(paragraph => paragraph.language);
+      storyWord = story.stories.map(paragraph => paragraph.translation);
       console.log("story image", storyImages);
       if (storyImages.length > 0) {
         displayImage(currentImageIndex);
         updateAudio(currentImageIndex);
-        displayStories(currentImageIndex);
+        updateTranslation(currentImageIndex);
       } else {
         console.error('No images found for the selected story.');
       }
     } else {
       console.error('No story found in localStorage or story has no images.');
     }
-  }
-  function displayStories(index) {
-    const container = document.getElementById('section-container-spacer');
-    container.innerHTML = `
-    <div class="col-xs-12">
-        <h2>${index.title || 'Project'}</h2>
-        <p>${index.text || 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'}</p>
-    `;
   }
   function displayImage(index) {
     const container = document.getElementById('story-images-container');
@@ -202,6 +199,16 @@
                 Your browser does not support the audio element.
             </audio>
         `;
+}
+function updateTranslation(index) {
+  const translationContainer = document.getElementById('translation-container');
+  if (storyWord[index]) {
+      translationContainer.innerHTML = `
+          <p>${storyWord[index]}</p>
+      `;
+  } else {
+      translationContainer.innerHTML = ''; // 清空翻譯文本容器
+  }
 }
   loadStory();
 </script>

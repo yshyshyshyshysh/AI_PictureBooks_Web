@@ -3,18 +3,21 @@
 <head>
     <link href="{{ url_for('static', filename='css/main.82cfd66e.css') }}" rel="stylesheet" />
     <title>Image Generation</title>
+    
     <script>
     function submitForm() {
         const title = document.getElementById('title').value;
         const language = document.getElementById('language').value;
         const token = document.getElementById('token').value;
+        const uid = document.getElementById('uid').value;
+        const storyToken = document.getElementById('storyToken').value;
 
         fetch('/submit', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ title, language, token })
+            body: JSON.stringify({ title, language, token, uid, storyToken })
         })
         .then(response => response.json())
         .then(data => {
@@ -102,8 +105,7 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="token">User Access Token:</label> 
-                          <a href="https://huggingface.co/settings/tokens" target="_blank">Get from here</a><br>
+                        <label for="token">Token:</label>
                         <input type="text" id="token" name="token" class="form-control">
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
@@ -112,4 +114,5 @@
         </div>
     </main>
 </body>
+<script src="{{ url_for('static', filename='js/login.js') }}"></script>
 </html>
