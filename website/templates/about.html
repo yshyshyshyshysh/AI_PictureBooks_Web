@@ -103,30 +103,27 @@
 
 
   <script>
-    function sendData() {
-        const form = document.getElementById('inputForm');
-        const formData = new FormData(form);
-    
+    function submitForm() {
+        const title = document.getElementById('title').value;
+        const language = document.getElementById('language').value;
+        const token = document.getElementById('token').value;
+
         fetch('/submit', {
-        method: 'POST',
-        body: JSON.stringify(Object.fromEntries(formData)),
-        headers: {
-            'Content-Type': 'application/json'
-        }
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ title, language, token })
         })
         .then(response => response.json())
         .then(data => {
-        console.log(data.story_download_url);
-        var urlsDiv = document.getElementById('urls');
-        data.story_download_url.forEach(url => {
-          var urlElement = document.createElement('p');
-          urlElement.textContent = url;
-          urlsDiv.appendChild(urlElement);
+            console.log(data);
         })
         .catch(error => {
-        console.error('Error:', error);
+            console.error('Error:', error);
         });
-</script>
+    }
+    </script>
   <script src="{{ url_for('static', filename='hello-world/public/controller/auth.js') }}"></script>
   <script src="{{ url_for('static', filename='js/login.js') }}"></script>
   <script src="{{ url_for('static', filename='js/main.85741bff.js') }}"></script>

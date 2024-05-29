@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <link href="{{ url_for('static', filename='css/main.82cfd66e.css') }}" rel="stylesheet" />
     <title>Image Generation</title>
     <script>
     function submitForm() {
@@ -26,13 +27,89 @@
     </script>
 </head>
 <body>
-    <h1>Image Generation</h1>
-    <label for="title">Title:</label>
-    <input type="text" id="title" name="title"><br><br>
-    <label for="language">Language:</label>
-    <input type="text" id="language" name="language"><br><br>
-    <label for="token">Token:</label>
-    <input type="text" id="token" name="token"><br><br>
-    <button onclick="submitForm()">Submit</button>
+    <header class="">
+        <div class="navbar navbar-default visible-xs">
+          <button type="button" class="navbar-toggle collapsed">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a href="/" class="navbar-brand">StoryVerse AI Hub</a>
+        </div>
+    
+        <nav class="sidebar">
+          <div class="navbar-collapse" id="navbar-collapse">
+            <div class="site-header hidden-xs">
+              <a class="site-brand" href="/" title="">
+                <img class="img-responsive site-logo" alt=""
+                  src="{{ url_for('static', filename='assets/images/Stack of Books.png') }}">
+                  StoryVerse AI Hub
+              </a>
+              <p>Powered by AI, we aim to seamlessly integrate picture books and audio with multilingual audio support (15+ languages). Our objective is to facilitate efficient language acquisition for users worldwide.</p>
+            </div>
+            <ul class="nav">
+              <li><a href="/" title="">Home</a></li>
+              <li><a href="/creator" title="">Story Creator</a></li>
+              <li id="loginLink"><a href="/contact" title="">Login/Sign up</a></li>
+              <!-- 其他連結... -->
+              <li id="logout-li" style="display: none;"><a href="#" id="logout-link">Log out</a></li>
+            </ul>
+    
+    
+            <nav class="nav-footer">
+              <p class="nav-footer-social-buttons">
+                <a class="fa-icon" href="https://github.com/yshyshyshyshysh/AI_PictureBooks_Web.git" title="">
+                  <i class="fa fa-github"></i>
+                </a>
+              </p>
+              <p>© Untitled | Website created with <a href="http://www.mashup-template.com/"
+                  title="Create website with free html template">Mashup Template</a>/<a href="https://www.unsplash.com/"
+                  title="Beautiful Free Images">Unsplash</a></p>
+            </nav>
+          </div>
+        </nav>
+      </header>
+      <main class="container">
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2">
+                <h1>Image Generation</h1>
+                <form onsubmit="submitForm(); return false;">
+                    <div class="form-group">
+                        <label for="title">Title:</label>
+                        <input type="text" id="title" name="title" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="language">Language:</label>
+                        <select id="language" name="language" class="form-control">
+                            <option value="en">英語</option>
+                            <option value="es">西班牙語</option>
+                            <option value="fr">法語</option>
+                            <option value="de">德語</option>
+                            <option value="it">意大利語</option>
+                            <option value="pt">葡萄牙語</option>
+                            <option value="pl">波蘭語</option>
+                            <option value="tr">土耳其語</option>
+                            <option value="ru">俄語</option>
+                            <option value="nl">荷蘭語</option>
+                            <option value="cs">捷克語</option>
+                            <option value="ar">阿拉伯語</option>
+                            <option value="zh-cn">簡體中文</option>
+                            <option value="hu">匈牙利語</option>
+                            <option value="ko">韓語</option>
+                            <option value="ja">日語</option>
+                            <option value="hi">印地語</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="token">User Access Token:</label> 
+                          <a href="https://huggingface.co/settings/tokens" target="_blank">Get from here</a><br>
+                        <input type="text" id="token" name="token" class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                </form>
+            </div>
+        </div>
+    </main>
 </body>
 </html>
