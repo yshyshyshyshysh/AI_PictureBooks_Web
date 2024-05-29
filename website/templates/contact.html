@@ -200,7 +200,10 @@
 
 
         login(emailInput, passwordInput)
-
+        setTimeout(function() {
+          localStorage.setItem("username", emailInput);
+          window.location.href = "/";
+        }, 2000);
         
         // window.location.href = "/";
         // 验证用户输入的邮箱和密码
