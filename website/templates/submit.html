@@ -65,6 +65,9 @@
                 <a class="fa-icon" href="https://github.com/yshyshyshyshysh/AI_PictureBooks_Web.git" title="">
                   <i class="fa fa-github"></i>
                 </a>
+                <a class="fa-icon" href="https://github.com/AdventrousAstronaut/web-app/tree/main" title="">
+                  <i class="fa fa-github"></i>
+                </a>
               </p>
               <p>© Untitled | Website created with <a href="http://www.mashup-template.com/"
                   title="Create website with free html template">Mashup Template</a>/<a href="https://www.unsplash.com/"
@@ -115,6 +118,29 @@
         </div>
     </main>
 </body>
+
+<script>
+  function submitForm() {
+      const title = document.getElementById('title').value;
+      const language = document.getElementById('language').value;
+      const token = document.getElementById('token').value;
+
+      fetch('/submit', {
+          method: 'POST',
+          headers: {
+              'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ title, language, token })
+      })
+      .then(response => response.json())
+      .then(data => {
+          console.log(data);
+      })
+      .catch(error => {
+          console.error('Error:', error);
+      });
+  }
+  </script>
 <script src="{{ url_for('static', filename='/hello-world/public/controller/auth.js') }}"></script>
 <script src="{{ url_for('static', filename='js/login.js') }}"></script>
 </html>

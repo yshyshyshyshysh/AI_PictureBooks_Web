@@ -2,6 +2,15 @@
 
 -   vscode 介面右上角有 markdown 的 preview，或是按 ctrl+shift+V
 
+## website 資料夾裡目前網頁的功能
+
+-   /: 探索頁面 (index.html)
+-   /signup: 註冊頁面 (signup.html)
+-   /contact: 登入頁面 (contact.html)
+-   /test_input: 創作頁面 (submit.html)
+-   /profile: 個人頁面 (profile.html)
+-   /project: 故事頁面 (project.html)
+
 ## example_website 資料夾裡目前網頁的功能
 
 -   打開後是 index.html 的內容，在網址後面加 /page1 會出現 page1.html 的內容
