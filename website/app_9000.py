@@ -3,7 +3,7 @@ import getpass
 import base64
 from model.model import generate_story, text_translations, text_to_images, text_to_speeches, translate_to_eng
 import firebase_admin
-from firebase_admin import credentials, storage, firestore
+from firebase_admin import credentials, storage
 from io import BytesIO
 from PIL import Image
 import random
@@ -17,12 +17,15 @@ import shutil
 app = Flask(__name__)
 
 #  firebase
-cred = credentials.Certificate("/home/webapp/AI_PictureBooks_Web/website/templates/firebaseconfig.json")  # replace with your service account key path
+cred = credentials.Certificate("/home/webapp/AI_PictureBooks_Web/website/templates/firebaseconfig.json")
 firebase_admin.initialize_app(cred, {
     'storageBucket': 'mywebsite-vivian.appspot.com'
 })
 bucket = storage.bucket()
 
+# db=firestore.client()
+# collection_ref = db.collection('item')
+# doc_ref = collection_ref.add("shi")
 
 """Define Flask routes"""
 
@@ -32,11 +35,11 @@ def index():
 
 @app.route('/creator')
 def creator():
-    return render_template('about.html')
+    return render_template('submit.html')
 
-@app.route('/components')
-def components():
-    return render_template('components.html')
+# @app.route('/components')
+# def components():
+#     return render_template('components.html')
 
 @app.route('/contact')
 def contact():
@@ -126,6 +129,10 @@ def submit():
     }
     log_data.append(log_entry)
     log_blob.upload_from_string(json.dumps(log_data), content_type='application/json')
+    
+    db=firestore.client()
+    collection_ref = db.collection('item')
+    doc_ref = collection_ref.add("shi")
     
     
     # https://firebasestorage.googleapis.com/v0/b/webapp-ecc1b.appspot.com/o/story_logs.json?alt=media&token=1560ce88-e76f-473f-a38d-d7caec27c511

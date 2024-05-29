@@ -33,7 +33,7 @@ bucket = storage.bucket()
 def index():
     return render_template('index.html')
 
-@app.route('/creator')
+@app.route('/test_input')
 def creator():
     return render_template('submit.html')
 
@@ -142,4 +142,4 @@ def submit():
     return jsonify({'story': json_url,'image_urls': image_url,'speech': mp3_urls})
 
 if __name__ == "__main__":
-    app.run(debug=True, port=8000)
+    app.run(debug=True, port=8081)

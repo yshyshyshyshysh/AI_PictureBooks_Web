@@ -35,11 +35,11 @@ def index():
 
 @app.route('/creator')
 def creator():
-    return render_template('about.html')
+    return render_template('submit.html')
 
-@app.route('/components')
-def components():
-    return render_template('components.html')
+# @app.route('/components')
+# def components():
+#     return render_template('components.html')
 
 @app.route('/contact')
 def contact():
@@ -142,4 +142,4 @@ def submit():
     return jsonify({'story': json_url,'image_urls': image_url,'speech': mp3_urls})
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+    app.run(debug=True, port=80)
