@@ -49,12 +49,12 @@ def project():
 def signup():
     return render_template('signup.html')
 
-@app.route('/test_input')
+@app.route('/creator')
 def test():
-    return render_template('submit.html')
+    return render_template('creator.html')
 
-@app.route('/submit', methods=['POST'])
-def submit():
+@app.route('/creator', methods=['POST'])
+def creator():
     data = request.json
     title = data.get('title')
     language = data.get('language')  # es
