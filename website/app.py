@@ -3,6 +3,7 @@ import getpass
 import base64
 from model.model import generate_story, text_translations, text_to_images, text_to_speeches, translate_to_eng
 import firebase_admin
+import google-cloud-firestore
 from firebase_admin import credentials, storage, firestore
 from io import BytesIO
 from PIL import Image
@@ -23,6 +24,9 @@ firebase_admin.initialize_app(cred, {
 })
 bucket = storage.bucket()
 
+# db=firestore.client()
+# collection_ref = db.collection('item')
+# doc_ref = collection_ref.add("shi")
 
 """Define Flask routes"""
 
@@ -126,6 +130,10 @@ def submit():
     }
     log_data.append(log_entry)
     log_blob.upload_from_string(json.dumps(log_data), content_type='application/json')
+    
+    db=firestore.client()
+    collection_ref = db.collection('item')
+    doc_ref = collection_ref.add("shi")
     
     
     # https://firebasestorage.googleapis.com/v0/b/webapp-ecc1b.appspot.com/o/story_logs.json?alt=media&token=1560ce88-e76f-473f-a38d-d7caec27c511
