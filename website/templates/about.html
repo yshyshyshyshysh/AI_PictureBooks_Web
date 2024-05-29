@@ -90,11 +90,15 @@
 
         <p>Please give some prompt and the language you preferred to create the story</p>
 
-        <div class="input-area"> <!-- 建立輸入訊息區域 -->
-          <input type="text" id="user-input" class="form-control" placeholder="Input prompt here"> <!-- 文字輸入框 -->
-          <div class="input-group-append"> <!-- 輸入框附加的按鈕群組 -->
-            <button id="send-btn" class="btn btn-primary">Send</button> <!-- 發送按鈕 -->
-          </div>
+        <form id="inputForm">
+          <label for="title">Title:</label><br>
+          <input type="text" id="title" class="form-control" name="title"><br>
+          <label for="language">Language:</label><br>
+          <input type="text" id="language" class="form-control" name="language"><br>
+          <label for="token">Token:</label><br>
+          <input type="text" id="token" class="form-control" name="token"><br><br>
+          <button type="send-btn" onclick="sendData()">Send</button>
+      </form>
         </div>
       </div>
     </div>
@@ -103,7 +107,31 @@
 
 
 
-
+  <script>
+    function sendData() {
+        const form = document.getElementById('inputForm');
+        const formData = new FormData(form);
+    
+        fetch('/submit', {
+        method: 'POST',
+        body: JSON.stringify(Object.fromEntries(formData)),
+        headers: {
+            'Content-Type': 'application/json'
+        }
+        })
+        .then(response => response.json())
+        .then(data => {
+        console.log(data.story_download_url);
+        var urlsDiv = document.getElementById('urls');
+        data.story_download_url.forEach(url => {
+          var urlElement = document.createElement('p');
+          urlElement.textContent = url;
+          urlsDiv.appendChild(urlElement);
+        })
+        .catch(error => {
+        console.error('Error:', error);
+        });
+</script>
   <script src="{{ url_for('static', filename='hello-world/public/controller/auth.js') }}"></script>
   <script src="{{ url_for('static', filename='js/login.js') }}"></script>
   <script src="{{ url_for('static', filename='js/main.85741bff.js') }}"></script>

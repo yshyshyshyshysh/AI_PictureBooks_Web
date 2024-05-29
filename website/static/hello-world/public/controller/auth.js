@@ -20,11 +20,14 @@ function login(email, password) {
         .then(result => {
             // 密碼正確
             alert("成功登入!");
+            window.location.href = "/";
         })
         .catch(error => {
             // 錯誤訊息, 密碼信箱不正確等等
             // 在此處可以跳轉頁面, 或是將錯誤訊息注入登入頁面
             console.log(error.message);
+            alert("登入失敗!");
+            window.location.reload();
         });
 }
 
