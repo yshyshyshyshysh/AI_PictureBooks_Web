@@ -118,7 +118,27 @@
         </div>
     </main>
 </body>
+<div class="hero-full-wrapper">
+    <div class="grid">
+      <div class="gutter-sizer"></div>
+      <div class="grid-sizer"></div>
+  
+    
+      
+      <!-- 更多的故事图片 -->
+    </div> 
+  </div>
 
+<script src="https://www.gstatic.com/firebasejs/5.0.0/firebase-app.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/5.0.0/firebase-auth.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/5.0.0/firebase-database.js"></script>
+
+<script src="{{ url_for('static', filename='hello-world/public/controller/config.js') }}"></script>
+
+<script src="{{ url_for('static', filename='hello-world/public/controller/auth.js') }}"></script>
+<script src="{{ url_for('static', filename='hello-world/public/controller/insert.js') }}"></script>
 <script>
   function submitForm() {
       const title = document.getElementById('title').value;
@@ -140,6 +160,185 @@
           console.error('Error:', error);
       });
   }
+  async function getUserInfo() {
+    const user = await retUserInfo();
+    console.log(user);
+    const displayNameElement = document.getElementById('displayName');
+    const phoneNumberElement = document.getElementById('phoneNumber');
+
+
+    emailInput.value = user.email;
+    nameInput.value = user.displayName;
+
+    // 設置displayName和phoneNumber的內容
+    displayNameElement.textContent = user.displayName || 'No Display Name';
+    phoneNumberElement.textContent = user.phoneNumber || 'No Phone Number'; 
+}
+
+function updateUserInfo(displayName, email, phoneNumber, bio, pronoun) {
+  // const user = await retUserInfo();
+  retUserInfo().then(user => {
+      user.updateProfile({
+          displayName: displayName,
+          phoneNumber: phoneNumber
+      }).then(function() {
+          // Update successful.
+          console.log("User profile updated successfully.");
+          getUserInfo();
+      }).catch(function(error) {
+          // An error happened.
+          console.error("Error updating user profile:", error);
+      });
+      
+      // Update email, phone number, bio, pronoun
+      const userRef = firebase.database().ref('users/' + user.uid);
+      userRef.update({
+          email: email,
+          phoneNumber: phoneNumber,
+          bio: bio,
+          pronoun: pronoun
+      }).then(function() {
+          console.log("User info updated successfully.");
+      }).catch(function(error) {
+          console.error("Error updating user info:", error);
+      });
+  }).catch(error => {
+      console.error(error);
+  });
+}
+
+
+function handleSubmit() {
+  const displayName = document.getElementById('nameInput').value;
+  const email = document.getElementById('emailInput').value;
+  const phoneNumber = document.getElementById('phoneInput').value;
+  const bio = document.getElementById('bioInput').value;
+  const pronoun = document.getElementById('pronounInput').value;
+
+  // updateUserInfo(displayName, email, phoneNumber, bio, pronoun).then(() => {
+  //   setTimeout(function() {
+  //     alert("Profile updated!");
+  //   }, 1000); // 延遲 1 秒顯示通知
+  // });
+  alert("Profile updated!");
+  setTimeout(function() {
+    updateUserInfo(displayName, email, phoneNumber, bio, pronoun);
+    }, 500); // 延遲 1 秒顯示通知
+}
+
+// function handleSubmit() {
+//   const displayName = document.querySelector('input[placeholder="this will be the display name "]').value;
+//   const email = document.getElementById('emailInput').value;
+//   const phoneNumber = document.querySelector('phoneInput').value;
+//   const bio = document.querySelector('bioInput').value;
+//   const pronoun = document.querySelector('pronounInput').value;
+
+//   updateUserInfo(displayName, email, phoneNumber, bio, pronoun);
+// }
+
+document.addEventListener('DOMContentLoaded', function() {
+    const saveProfileButton = document.getElementById('saveProfileButton');
+    saveProfileButton.addEventListener('click', handleSubmit);
+    // alert("Profile updated!");
+});
+
+
+
+  getUserInfo();
+
+
+
+//                       how to show stories|
+//                                          v
+function myStoryImages(id) {
+    getMyStories(id).then(data => {
+        if (!data) {
+            console.error('No data received from Firebase');
+            return;
+        }
+
+        const stories = Object.values(data);
+        console.log('Fetched stories:', stories); // 调试信息
+        const gridContainer = document.querySelector('.grid');
+
+        if (stories.length > 0) {
+            const story = stories[0]; // 只取第一個故事
+            const gridItem = document.createElement('div');
+            gridItem.classList.add('grid-item');
+            gridItem.setAttribute('data-id', story.signature);
+
+            const img = document.createElement('img');
+            img.classList.add('img-responsive', 'story-image');
+            img.alt = story.title;
+
+            const imageUrl = story.image;
+            if (imageUrl) {
+                img.src = imageUrl;
+            } else {
+                console.error(`No picture found for story:`, story); // 调试信息
+                img.src = '{{ url_for('static', filename='assets/images/default.jpg') }}'; // 使用默认图片
+            }
+
+            const projectDescription = document.createElement('a');
+            projectDescription.href = "/project"; // 使用 # 作为临时链接
+            projectDescription.classList.add('project-description');
+
+            projectDescription.addEventListener('click', function() {
+                localStorage.setItem('selectedStory', JSON.stringify(story));
+                window.location.href = '/project.html';
+            });
+
+            const projectTextHolder = document.createElement('div');
+            projectTextHolder.classList.add('project-text-holder');
+
+            const projectTextInner = document.createElement('div');
+            projectTextInner.classList.add('project-text-inner');
+
+            const h3 = document.createElement('h3');
+            h3.textContent = story.title;
+
+            const p = document.createElement('p');
+            p.textContent = 'Discover more';
+
+            projectTextInner.appendChild(h3);
+            projectTextInner.appendChild(p);
+            projectTextHolder.appendChild(projectTextInner);
+            projectDescription.appendChild(projectTextHolder);
+
+            gridItem.appendChild(img);
+            gridItem.appendChild(projectDescription);
+            gridContainer.appendChild(gridItem);
+        } else {
+            console.error('No stories available.');
+        }
+
+    }).catch(error => {
+        console.error('Error fetching stories:', error); // 调试信息
+    });
+}
+
+    myStoryImages("id4");
+
+
+// if (user) {
+        // document.getElementById('avatar').src = user.avatarURL;
+        // document.getElementById('intro').innerText = user.intro;
+        // console.log(user.avatarURL)
+        // console.log(user.intro)
+    //     console.log(user);
+    // } else {
+    //     console.log("User not found.");
+    // }
+
+// const username = localStorage.getItem("username");
+// const user = retUserInfo()
+//         document.getElementById('avatar').src = user.avatarURL;
+//         document.getElementById('intro').innerText = user.intro;
+//         console.log(user.avatarURL)
+//         console.log(user.intro)
+
+// retUserInfo();//test
+
   </script>
 <script src="{{ url_for('static', filename='/hello-world/public/controller/auth.js') }}"></script>
 <script src="{{ url_for('static', filename='js/login.js') }}"></script>

@@ -165,6 +165,7 @@
 <script src="{{ url_for('static', filename='js/login.js') }}"></script>
 <!-- <script src="{{ url_for('static', filename='hello-world/public/controller/userStatus.js') }}"></script> -->
 <script>
+
   async function getUserInfo() {
     const user = await retUserInfo();
     console.log(user);
@@ -248,11 +249,6 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 
-
-  getUserInfo();
-
-
-
 //                       how to show stories|
 //                                          v
 
@@ -319,7 +315,12 @@ document.addEventListener('DOMContentLoaded', function() {
           console.error('Error fetching stories:', error); // 调试信息
       });
     }
-    myStoryImages("id4");
+    retUserInfo().then(user => {
+      const uid = user.uid;
+      myStoryImages(uid);
+  }).catch(error => {
+      console.error('Error fetching user info:', error);
+  });
 
 
 // if (user) {

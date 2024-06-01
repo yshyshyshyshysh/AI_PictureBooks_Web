@@ -118,9 +118,9 @@ def creator():
     log_data.append(log_entry)
     log_blob.upload_from_string(json.dumps(log_data), content_type='application/json')
     
-    db=firestore.client()
-    collection_ref = db.collection('item')
-    doc_ref = collection_ref.add("shi")
+    # db=firestore.client()
+    # collection_ref = db.collection('item')
+    # doc_ref = collection_ref.add("shi")
     
     
     # https://firebasestorage.googleapis.com/v0/b/webapp-ecc1b.appspot.com/o/story_logs.json?alt=media&token=1560ce88-e76f-473f-a38d-d7caec27c511
