@@ -108,15 +108,19 @@ def creator():
         i = i + 1
         os.remove(f'/home/webapp/AI_PictureBooks_Web/website/model/speech/paragraph {i}.mp3')
 
+    language_info = f'中文翻譯成{language}'
 
     log_blob = bucket.blob('story_logs.json')
     log_data = json.loads(log_blob.download_as_text()) if log_blob.exists() else []
     log_entry = {
         'title': title,
+        'From_To': language_info,
         'title_eng': title_eng,
         'story_url': json_url,
         'image_urls': image_url,
-        'speech_urls': mp3_urls
+        'speech_urls': mp3_urls,
+        'uid': uid,
+        "storyToken": storyToken
     }
     log_data.append(log_entry)
     log_blob.upload_from_string(json.dumps(log_data), content_type='application/json')
@@ -133,4 +137,4 @@ def creator():
     return jsonify({'story': json_url,'image_urls': image_url,'speech': mp3_urls})
 
 if __name__ == "__main__":
-    app.run(debug=True, port=8050)
+    app.run(debug=True, port=6969)

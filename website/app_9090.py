@@ -3,7 +3,7 @@ import getpass
 import base64
 from model.model import generate_story, text_translations, text_to_images, text_to_speeches, translate_to_eng
 import firebase_admin
-from firebase_admin import credentials, storage
+from firebase_admin import credentials, storage, firestore
 from io import BytesIO
 from PIL import Image
 import random
@@ -70,7 +70,7 @@ def creator():
     translation = text_translations(story_info, language)
     image = text_to_images(story_info, token)
     speeches = text_to_speeches(translation, language)
-    
+
 
     story_data = {
         'title': title,
@@ -117,12 +117,12 @@ def creator():
     }
     log_data.append(log_entry)
     log_blob.upload_from_string(json.dumps(log_data), content_type='application/json')
-    
-    # db=firestore.client()
-    # collection_ref = db.collection('item')
-    # doc_ref = collection_ref.add("shi")
-    
-    
+
+    db=firestore.client()
+    collection_ref = db.collection('item')
+    doc_ref = collection_ref.add("shi")
+
+
     # https://firebasestorage.googleapis.com/v0/b/webapp-ecc1b.appspot.com/o/story_logs.json?alt=media&token=1560ce88-e76f-473f-a38d-d7caec27c511
 
     # return jsonify({'story': json_url,'image_urls': image_url})
@@ -131,4 +131,3 @@ def creator():
 
 if __name__ == "__main__":
     app.run(debug=True, port=9090)
-    

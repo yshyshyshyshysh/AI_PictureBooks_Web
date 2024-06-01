@@ -4,30 +4,30 @@
     <link href="{{ url_for('static', filename='css/main.82cfd66e.css') }}" rel="stylesheet" />
     <title>StoryVerse AI Hub</title>
     
-    <script>
-    function submitForm() {
-        const title = document.getElementById('title').value;
-        const language = document.getElementById('language').value;
-        const token = document.getElementById('token').value;
-        const uid = document.getElementById('uid').value;
-        const storyToken = document.getElementById('storyToken').value;
-
-        fetch('/creator', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ title, language, token, uid, storyToken })
-        })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-    }
-    </script>
+     <script>
+   // function submitForm() {
+   //     const title = document.getElementById('title').value;
+  //      const language = document.getElementById('language').value;
+  //      const token = document.getElementyId('token').value;
+  //      const uid = document.getElementById('uid').value;
+  //      const storyToken = document.getElementById('storyToken').value;
+//
+  //      fetch('/creator', {
+  //          method: 'POST',
+  //         headers: {
+  //              'Content-Type': 'application/json'
+   //         },
+    //        body: JSON.stringify({ title, language, token, uid, storyToken })
+    //    })
+    //    .then(response => response.json())
+    //    .then(data => {
+    //        console.log(data);
+    //    })
+    //    .catch(error => {
+    //        console.error('Error:', error);
+    //    });
+    //}
+    //</script>
 </head>
 <body>
     <header class="">
@@ -140,17 +140,28 @@
 <script src="{{ url_for('static', filename='hello-world/public/controller/auth.js') }}"></script>
 <script src="{{ url_for('static', filename='hello-world/public/controller/insert.js') }}"></script>
 <script>
+  
+  function testsubmitForm(){
+    var tmp;
+    retUserInfo().then(res => {
+      tmp = res.uid;
+    })
+    console.log("user id: " + tmp);
+  }
+
   function submitForm() {
+
       const title = document.getElementById('title').value;
       const language = document.getElementById('language').value;
       const token = document.getElementById('token').value;
-
-      fetch('/creator', {
+      retUserInfo().then(user => {
+        const uid = user.uid;
+        fetch('/creator', {
           method: 'POST',
           headers: {
               'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ title, language, token })
+          body: JSON.stringify({ title, language, token, uid})
       })
       .then(response => response.json())
       .then(data => {
@@ -159,92 +170,11 @@
       .catch(error => {
           console.error('Error:', error);
       });
+    }).catch(error => {
+        console.error('Error fetching user info:', error);
+    });
+
   }
-  async function getUserInfo() {
-    const user = await retUserInfo();
-    console.log(user);
-    const displayNameElement = document.getElementById('displayName');
-    const phoneNumberElement = document.getElementById('phoneNumber');
-
-
-    emailInput.value = user.email;
-    nameInput.value = user.displayName;
-
-    // 設置displayName和phoneNumber的內容
-    displayNameElement.textContent = user.displayName || 'No Display Name';
-    phoneNumberElement.textContent = user.phoneNumber || 'No Phone Number'; 
-}
-
-function updateUserInfo(displayName, email, phoneNumber, bio, pronoun) {
-  // const user = await retUserInfo();
-  retUserInfo().then(user => {
-      user.updateProfile({
-          displayName: displayName,
-          phoneNumber: phoneNumber
-      }).then(function() {
-          // Update successful.
-          console.log("User profile updated successfully.");
-          getUserInfo();
-      }).catch(function(error) {
-          // An error happened.
-          console.error("Error updating user profile:", error);
-      });
-      
-      // Update email, phone number, bio, pronoun
-      const userRef = firebase.database().ref('users/' + user.uid);
-      userRef.update({
-          email: email,
-          phoneNumber: phoneNumber,
-          bio: bio,
-          pronoun: pronoun
-      }).then(function() {
-          console.log("User info updated successfully.");
-      }).catch(function(error) {
-          console.error("Error updating user info:", error);
-      });
-  }).catch(error => {
-      console.error(error);
-  });
-}
-
-
-function handleSubmit() {
-  const displayName = document.getElementById('nameInput').value;
-  const email = document.getElementById('emailInput').value;
-  const phoneNumber = document.getElementById('phoneInput').value;
-  const bio = document.getElementById('bioInput').value;
-  const pronoun = document.getElementById('pronounInput').value;
-
-  // updateUserInfo(displayName, email, phoneNumber, bio, pronoun).then(() => {
-  //   setTimeout(function() {
-  //     alert("Profile updated!");
-  //   }, 1000); // 延遲 1 秒顯示通知
-  // });
-  alert("Profile updated!");
-  setTimeout(function() {
-    updateUserInfo(displayName, email, phoneNumber, bio, pronoun);
-    }, 500); // 延遲 1 秒顯示通知
-}
-
-// function handleSubmit() {
-//   const displayName = document.querySelector('input[placeholder="this will be the display name "]').value;
-//   const email = document.getElementById('emailInput').value;
-//   const phoneNumber = document.querySelector('phoneInput').value;
-//   const bio = document.querySelector('bioInput').value;
-//   const pronoun = document.querySelector('pronounInput').value;
-
-//   updateUserInfo(displayName, email, phoneNumber, bio, pronoun);
-// }
-
-document.addEventListener('DOMContentLoaded', function() {
-    const saveProfileButton = document.getElementById('saveProfileButton');
-    saveProfileButton.addEventListener('click', handleSubmit);
-    // alert("Profile updated!");
-});
-
-
-
-  getUserInfo();
 
 
 
