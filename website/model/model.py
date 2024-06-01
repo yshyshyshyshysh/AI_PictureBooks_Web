@@ -51,6 +51,7 @@ def text_generation(title):
     #     full_story.lower().count(word.lower()) 
     # return full_story
 
+
 def extract_story_info(text):
     split_words = ['paragraph 1:', 'illustration 1:', 'paragraph 2:', 'illustration 2:', 'paragraph 3:', 'illustration 3:', 'paragraph 4:', 'illustration 4:']
     keys = ['paragraph 1', 'illustration 1', 'paragraph 2', 'illustration 2', 'paragraph 3', 'illustration 3', 'paragraph 4', 'illustration 4']
@@ -61,7 +62,7 @@ def extract_story_info(text):
     story_info = {}
     for i in range(len(keys)):
         key = keys[i]
-        value = split_text[i * 2 + 1]
+        value = split_text[i * 2 + 11]
         story_info[key] = value
     if '\n' in story_info['illustration 4']:
         split_illustration = story_info['illustration 4'].split('\n')
