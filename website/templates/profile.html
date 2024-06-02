@@ -40,7 +40,7 @@
           src="{{ url_for('static', filename='assets/images/logo.jpg') }}">
           StoryVerse AI Hub
       </a>
-      <p>Powered by AI, we aim to seamlessly integrate picture books and audio with multilingual audio support (15+ languages). Our objective is to facilitate efficient language acquisition for users worldwide.</p>
+      <p>Powered by AI, we aim to seamlessly integrate picture books with multilingual audio support (15+ languages). Our objective is to facilitate efficient language acquisition for users worldwide.</p>
     </div>
       <ul class="nav">
         <li><a href="/" title="">Home</a></li>
@@ -171,7 +171,7 @@
     console.log(user);
     const displayNameElement = document.getElementById('displayName');
     const phoneNumberElement = document.getElementById('phoneNumber');
-
+    const uid = document.getElementById('uid');
 
     emailInput.value = user.email;
     nameInput.value = user.displayName;
@@ -180,6 +180,8 @@
     displayNameElement.textContent = user.displayName || 'No Display Name';
     phoneNumberElement.textContent = user.phoneNumber || 'No Phone Number'; 
 }
+
+getUserInfo();
 
 function updateUserInfo(displayName, email, phoneNumber, bio, pronoun) {
   // const user = await retUserInfo();
@@ -314,13 +316,14 @@ document.addEventListener('DOMContentLoaded', function() {
       }).catch(error => {
           console.error('Error fetching stories:', error); // 调试信息
       });
-    }
-    retUserInfo().then(user => {
+}
+
+retUserInfo().then(user => {
       const uid = user.uid;
       myStoryImages(uid);
   }).catch(error => {
       console.error('Error fetching user info:', error);
-  });
+});
 
 
 // if (user) {

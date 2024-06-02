@@ -3,7 +3,7 @@
 <head>
     <link href="{{ url_for('static', filename='css/main.82cfd66e.css') }}" rel="stylesheet" />
     <title>StoryVerse AI Hub</title>
-    
+
      <script>
    // function submitForm() {
    //     const title = document.getElementById('title').value;
@@ -40,7 +40,7 @@
           </button>
           <a href="/" class="navbar-brand">StoryVerse AI Hub</a>
         </div>
-    
+
         <nav class="sidebar">
           <div class="navbar-collapse" id="navbar-collapse">
             <div class="site-header hidden-xs">
@@ -49,7 +49,7 @@
                   src="{{ url_for('static', filename='assets/images/logo.jpg') }}">
                   StoryVerse AI Hub
               </a>
-              <p>Powered by AI, we aim to seamlessly integrate picture books and audio with multilingual audio support (15+ languages). Our objective is to facilitate efficient language acquisition for users worldwide.</p>
+              <p>Powered by AI, we aim to seamlessly integrate picture books with multilingual audio support (15+ languages). Our objective is to facilitate efficient language acquisition for users worldwide.</p>
             </div>
             <ul class="nav">
               <li><a href="/" title="">Home</a></li>
@@ -58,8 +58,8 @@
               <!-- 其他連結... -->
               <li id="logout-li" style="display: none;"><a href="#" id="logout-link">Log out</a></li>
             </ul>
-    
-    
+
+
             <nav class="nav-footer">
               <p class="nav-footer-social-buttons">
                 <a class="fa-icon" href="https://github.com/yshyshyshyshysh/AI_PictureBooks_Web.git" title="">
@@ -108,8 +108,8 @@
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="token">User Access Token:</label> 
-                        <a href="https://huggingface.co/settings/tokens" target="_blank">Get from here</a><br>                      
+                        <label for="token">User Access Token:</label>
+                        <a href="https://huggingface.co/settings/tokens" target="_blank">Get from here</a><br>
                         <input type="text" id="token" name="token" class="form-control">
                     </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
@@ -122,11 +122,11 @@
     <div class="grid">
       <div class="gutter-sizer"></div>
       <div class="grid-sizer"></div>
-  
-    
-      
+
+
+
       <!-- 更多的故事图片 -->
-    </div> 
+    </div>
   </div>
 
 <script src="https://www.gstatic.com/firebasejs/5.0.0/firebase-app.js"></script>
@@ -140,7 +140,7 @@
 <script src="{{ url_for('static', filename='hello-world/public/controller/auth.js') }}"></script>
 <script src="{{ url_for('static', filename='hello-world/public/controller/insert.js') }}"></script>
 <script>
-  
+
   function testsubmitForm(){
     var tmp;
     retUserInfo().then(res => {
@@ -156,23 +156,29 @@
       const token = document.getElementById('token').value;
       retUserInfo().then(user => {
         const uid = user.uid;
-        fetch('/creator', {
-          method: 'POST',
-          headers: {
-              'Content-Type': 'application/json'
-          },
-          body: JSON.stringify({ title, language, token, uid})
-      })
-      .then(response => response.json())
-      .then(data => {
-          console.log(data);
-      })
-      .catch(error => {
-          console.error('Error:', error);
+        newStories().then(storytoken => {
+          fetch('/creator', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ title, language, token, uid, storytoken })
+        })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            // testing
+            firebase.database().ref("/private/" + uid + "/mystories/" + storyToken).set("123123");
+            myStoryImages(uid);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
+      }).catch(error => {
+          console.error('Error fetching user info:', error);
       });
-    }).catch(error => {
-        console.error('Error fetching user info:', error);
-    });
+        })
+
 
   }
 
@@ -247,9 +253,14 @@ function myStoryImages(id) {
     });
 }
 
-    myStoryImages("id4");
 
 
+document.addEventListener('DOMContentLoaded', function() {
+    if(!isLoggedIn){
+      alert("You have not logged in.");
+      window.location.href = '/contact'; // 跳轉到 /contact 頁面
+    }
+});
 // if (user) {
         // document.getElementById('avatar').src = user.avatarURL;
         // document.getElementById('intro').innerText = user.intro;

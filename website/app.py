@@ -3,7 +3,8 @@ import getpass
 import base64
 from model.model import generate_story, text_translations, text_to_images, text_to_speeches, translate_to_eng
 import firebase_admin
-from firebase_admin import credentials, storage
+# import google-cloud-firestore
+from firebase_admin import credentials, storage, firestore
 from io import BytesIO
 from PIL import Image
 import random
@@ -62,6 +63,9 @@ def creator():
     uid = data.get('uid')
     storyToken = data.get('storyToken')
 
+    # db=firestore.client()
+    # collection_ref = db.collection("private").document(uid).collection("subcollection")
+    # doc_ref = collection_ref.add({"123": "123"})
 
 
     # story_info = {'paragraph 1': "I was an ordinary boy, but one day I found a strange object in the forest. It was a toad's leg bone and it glowed with magic!", 'illustration 1': "A young boy holding a glowing toad's leg bone, standing in front of a giant tree. The background is filled with colorful leaves and flowers.", 'paragraph 2': 'When I touched the bone, I felt strange powers coursing through my body. Suddenly, I grew scales, wings, and a fiery breath!', 'illustration 2': 'A boy transformed into a dragon, standing on his hind legs with wings spread wide. He is surrounded by flames and smoke.', 'paragraph 3': 'Now I can breathe fire and fly through the skies! People call me the Spit Dragon because of my fiery breath. But sometimes I miss being a human boy.', 'illustration 3': 'A dragon flying over a village, with people looking up in amazement. The dragon has a sad expression on his face, longing for his former life as a human.', 'paragraph 4': "One day, I will find a way to turn back into a boy. Until then, I'll soar the skies and protect my forest home with my fiery breath!", 'illustration 4': 'A dragon perched on a branch of a tree, looking out over the landscape with a determined expression. The sun is setting in the background, casting warm colors across the scene.', 'title': 'I became a spit dragon'}
@@ -72,7 +76,7 @@ def creator():
     print(translation)
     image = text_to_images(story_info, token)
     speeches = text_to_speeches(translation, language)
-    
+
 
     story_data = {
         'title': title,
@@ -96,7 +100,7 @@ def creator():
         blob = bucket.blob(f'{title_eng}/image_{i}.jpg')
         blob.upload_from_file(img_bytes, content_type='image/jpg')
         image_url.append(blob.generate_signed_url(timedelta(days=365)))
-    
+
 
     mp3_urls = []
     for i, speech_file in enumerate(speeches):
@@ -124,12 +128,12 @@ def creator():
     }
     log_data.append(log_entry)
     log_blob.upload_from_string(json.dumps(log_data), content_type='application/json')
-    
+
+    # print(">>> PUSH INTO DATABASE")
     # db=firestore.client()
-    # collection_ref = db.collection('item')
-    # doc_ref = collection_ref.add("shi")
-    
-    
+    # collection_ref = db.collection(uid)
+    # doc_ref = collection_ref.add(log_entry)
+
     # https://firebasestorage.googleapis.com/v0/b/webapp-ecc1b.appspot.com/o/story_logs.json?alt=media&token=1560ce88-e76f-473f-a38d-d7caec27c511
 
     # return jsonify({'story': json_url,'image_urls': image_url})
@@ -137,4 +141,4 @@ def creator():
     return jsonify({'story': json_url,'image_urls': image_url,'speech': mp3_urls})
 
 if __name__ == "__main__":
-    app.run(debug=True, port=8050)
+    app.run(debug=True, port=7070)
