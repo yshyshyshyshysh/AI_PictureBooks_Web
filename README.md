@@ -2,7 +2,6 @@
 
 **`June 5, 2024 / by Yu-Shin, Hu`**
 
-Powered by AI, we aim to seamlessly integrate picture book creation with multilingual audio support (15+ languages). Our objective is to facilitate efficient language acquisition for users worldwide.
 
 ## How to run
 
