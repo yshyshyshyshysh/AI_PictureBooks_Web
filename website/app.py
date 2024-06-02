@@ -18,7 +18,7 @@ import shutil
 app = Flask(__name__)
 
 #  firebase
-cred = credentials.Certificate("/home/webapp/AI_PictureBooks_Web/website/templates/firebaseconfig.json")
+cred = credentials.Certificate("/home/webappp/AI_PictureBooks_Web/website/templates/firebaseconfig.json")
 firebase_admin.initialize_app(cred, {
     'storageBucket': 'mywebsite-vivian.appspot.com'
 })
@@ -110,7 +110,7 @@ def creator():
         mp3_urls.append(mp3_token)
     for i in range(4):
         i = i + 1
-        os.remove(f'/home/webapp/AI_PictureBooks_Web/website/model/speech/paragraph {i}.mp3')
+        os.remove(f'/home/webappp/AI_PictureBooks_Web/website/model/speech/paragraph {i}.mp3')
 
     language_info = f'中文翻譯成{language}'
 
