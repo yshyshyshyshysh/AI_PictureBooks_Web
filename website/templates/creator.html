@@ -81,6 +81,7 @@
             <div class="col-md-8 col-md-offset-2">
                 <h1>Create a picture book</h1>
                 <form onsubmit="submitForm(); return false;">
+                <!-- <form onsubmit="submitForm()"> -->
                     <div class="form-group">
                         <label for="title">Title:</label>
                         <input type="text" id="title" name="title" class="form-control">
@@ -137,6 +138,8 @@
 
 <script src="{{ url_for('static', filename='hello-world/public/controller/config.js') }}"></script>
 
+<script src="{{ url_for('static', filename='js/login.js') }}"></script>
+
 <script src="{{ url_for('static', filename='hello-world/public/controller/auth.js') }}"></script>
 <script src="{{ url_for('static', filename='hello-world/public/controller/insert.js') }}"></script>
 <script>
@@ -156,20 +159,27 @@
       const token = document.getElementById('token').value;
       retUserInfo().then(user => {
         const uid = user.uid;
-        newStories().then(storytoken => {
+        newStories(uid, "").then(storyToken  => {
+          console.log("...here");
+          console.log("storyToken: ..."+ storyToken);
           fetch('/creator', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({ title, language, token, uid, storytoken })
+            body: JSON.stringify({ title, language, token, uid, storyToken })
         })
         .then(response => response.json())
         .then(data => {
             console.log(data);
-            // testing
-            firebase.database().ref("/private/" + uid + "/mystories/" + storyToken).set("123123");
-            myStoryImages(uid);
+            try {
+              updateStories(data);
+            } catch (error) {
+              console.error(error);
+            }
+
+            console.log("push to database");
+            // myStoryImages(uid);
         })
         .catch(error => {
             console.error('Error:', error);
@@ -182,6 +192,25 @@
 
   }
 
+  function updateStories(tmp){ // json file
+      item = {
+        "title": tmp["title"],
+        "From_To": tmp["From_To"],
+        "image": tmp["image_urls"][0],
+        "signature" : tmp["uid"],
+        "stories": {}
+      }
+      for (let i = 0; i < tmp["speech_urls"].length; i++) {
+          item["stories"][i] = {
+              "soundtrack": tmp["speech_urls"][i],
+              "text": tmp["paragraphs"][i],
+              "translation": tmp["translations"][i],
+              "image": tmp["image_urls"][i]
+          };
+      }
+      const path = "/private/" + tmp["uid"] + "/mystories/" + tmp["storyToken"];
+      firebase.database().ref(path).set(item);
+  }
 
 
 //                       how to show stories|
@@ -212,7 +241,7 @@ function myStoryImages(id) {
                 img.src = imageUrl;
             } else {
                 console.error(`No picture found for story:`, story); // 调试信息
-                img.src = '{{ url_for('static', filename='assets/images/default.jpg') }}'; // 使用默认图片
+                img.src = "{{ url_for('static', filename='assets/images/default.jpg') }}"; // 使用默认图片 // 使用默认图片
             }
 
             const projectDescription = document.createElement('a');
@@ -258,7 +287,7 @@ function myStoryImages(id) {
 document.addEventListener('DOMContentLoaded', function() {
     if(!isLoggedIn){
       alert("You have not logged in.");
-      window.location.href = '/contact'; // 跳轉到 /contact 頁面
+      // window.location.href = '/contact'; // 跳轉到 /contact 頁面
     }
 });
 // if (user) {
@@ -280,7 +309,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // retUserInfo();//test
 
+
+
   </script>
 <script src="{{ url_for('static', filename='/hello-world/public/controller/auth.js') }}"></script>
-<script src="{{ url_for('static', filename='js/login.js') }}"></script>
 </html>

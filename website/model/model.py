@@ -9,6 +9,7 @@ from PIL import Image
 import matplotlib.pyplot as plt
 import io
 from TTS.api import TTS
+# pip install -U TTS # IF FACING ANY ERROR IN TTS PLEASE UPDATE IT
 
 """Text-Generation > story_info"""
 
