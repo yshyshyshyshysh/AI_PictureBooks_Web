@@ -1,0 +1,1 @@
+speech folder 不能刪!

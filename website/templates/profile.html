@@ -112,6 +112,10 @@
                       </div>
                   </div>
                   <div class="row mt-3">
+                    <div class="col-md-12 mb-3">
+                      <label class="labels">ID</label>
+                      <input id="idInput" type="text" class="form-control" placeholder="" value="">
+                  </div>
                       <div class="col-md-12 mb-3">
                           <label class="labels">手機號碼</label>
                           <input id="phoneInput" type="text" class="form-control" placeholder="請輸入手機號碼" value="">
@@ -175,7 +179,7 @@
 
     emailInput.value = user.email;
     nameInput.value = user.displayName;
-
+    idInput.value = user.uid;
     // 設置displayName和phoneNumber的內容
     displayNameElement.textContent = user.displayName || 'No Display Name';
     phoneNumberElement.textContent = user.phoneNumber || 'No Phone Number'; 
@@ -219,6 +223,7 @@ function updateUserInfo(displayName, email, phoneNumber, bio, pronoun) {
 function handleSubmit() {
   const displayName = document.getElementById('nameInput').value;
   const email = document.getElementById('emailInput').value;
+  const idNum = document.getElementById('idInput').value;
   const phoneNumber = document.getElementById('phoneInput').value;
   const bio = document.getElementById('bioInput').value;
   const pronoun = document.getElementById('pronounInput').value;
@@ -230,7 +235,7 @@ function handleSubmit() {
   // });
   alert("Profile updated!");
   setTimeout(function() {
-    updateUserInfo(displayName, email, phoneNumber, bio, pronoun);
+    updateUserInfo(displayName, email, idNum, phoneNumber, bio, pronoun);
     }, 500); // 延遲 1 秒顯示通知
 }
 
