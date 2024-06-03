@@ -7,6 +7,7 @@
 
 -   Go to website folder: `cd /home/webapp/AI_PictureBooks_Web/website`
 -   Install the requirements: `pip install -r model/requirements.txt`
+-   Update TTS: `pip install -U TTS`
 -   Run the website: `python3 app.py` 
 
 ## Frontend
