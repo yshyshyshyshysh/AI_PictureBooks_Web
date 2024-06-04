@@ -151,6 +151,8 @@ def creator():
 
     # return jsonify({'story': json_url,'image_urls': image_url})
     # return jsonify({'speech': mp3_urls})
+    
+    print("ALL DONE!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     return jsonify(retData)
 
 if __name__ == "__main__":

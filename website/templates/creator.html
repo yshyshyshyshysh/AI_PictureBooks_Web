@@ -271,7 +271,27 @@ function myStoryImages(id) {
             h3.textContent = story.title;
 
             const h4 = document.createElement('h4');
-            h4.textContent = story.language;
+              const all_languages = {
+                  'en': '英語',
+                  'es': '西班牙語',
+                  'fr': '法語',
+                  'de': '德語',
+                  'it': '意大利語',
+                  'pt': '葡萄牙語',
+                  'pl': '波蘭語',
+                  'tr': '土耳其語',
+                  'ru': '俄語',
+                  'nl': '荷蘭語',
+                  'cs': '捷克語',
+                  'ar': '阿拉伯語',
+                  'zh-cn': '簡體中文',
+                  'hu': '匈牙利語',
+                  'ko': '韓語',
+                  'ja': '日語',
+                  'hi': '印地語'
+              };
+              const languageName = all_languages[story.language] || '未知語言';
+              h4.textContent = languageName;
 
             const p = document.createElement('p');
             p.textContent = 'Discover more';

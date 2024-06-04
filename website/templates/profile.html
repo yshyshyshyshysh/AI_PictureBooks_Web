@@ -269,7 +269,15 @@ document.addEventListener('DOMContentLoaded', function() {
           const stories = Object.values(data);
           console.log('Fetched stories:', stories); // 调试信息
           const gridContainer = document.querySelector('.grid');
-  
+ 
+          // Clear previous grid items
+      while (gridContainer.firstChild) {
+        gridContainer.removeChild(gridContainer.firstChild);
+      }
+
+      // Skip the first two stories
+      const storiesToDisplay = stories.slice(2);
+
           stories.forEach((story, index) => {
               const gridItem = document.createElement('div');
               gridItem.classList.add('grid-item');
@@ -293,7 +301,7 @@ document.addEventListener('DOMContentLoaded', function() {
               
               projectDescription.addEventListener('click', function() {
                 localStorage.setItem('selectedStory', JSON.stringify(story));
-                window.location.href = '/project.html';
+                window.location.href = '/project';
               });
   
               const projectTextHolder = document.createElement('div');

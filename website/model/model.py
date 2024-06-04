@@ -76,10 +76,24 @@ def translate_to_eng(title):
     translation = translator.translate(title, dest='en')
     return translation.text
 
-def generate_story(title):
-    full_story = text_generation(title)
+def a_story():
+    story_info = {
+        'title': 'Becoming a Cat',
+        'paragraph 1': "I was an ordinary person, living a typical life in the bustling city. But one day, I woke up to find myself transformed into a small, fluffy cat!",
+        'illustration 1': "A person waking up in bed, stretching and yawning, only to discover they have transformed into a cute cat. The room is filled with morning light, and the person-turned-cat looks surprised.",
+        'paragraph 2': 'At first, I was shocked and confused by my new form. But as I explored my surroundings on four furry paws, I began to embrace the freedom and agility that came with being a cat.',
+        'illustration 2': 'The cat navigating its way around the room, jumping onto furniture and investigating its surroundings with curiosity. Its tail is held high, and its eyes are bright with wonder.',
+        'paragraph 3': 'Life as a cat was full of unexpected adventures. I chased butterflies in the garden, napped in sunbeams, and made friends with other animals in the neighborhood.',
+        'illustration 3': 'The cat frolicking in a sunlit garden, surrounded by flowers and butterflies. Nearby, birds chirp in the trees, and other animals watch with interest as the cat explores its new life.',
+        'paragraph 4': "Though I missed certain aspects of my human life, I found joy in the simplicity and spontaneity of being a cat. With each passing day, I embraced my feline nature more and more, knowing that I was exactly where I was meant to be.",
+        'illustration 4': 'The cat sitting contentedly in a cozy corner of the house, surrounded by toys and blankets. Its expression is peaceful, and it radiates a sense of acceptance and happiness in its new life as a cat.'
+    }
+    return story_info
 
-    story_info = extract_story_info(full_story)
+def generate_story(title):
+    # full_story = text_generation(title)
+    # story_info = extract_story_info(full_story)
+    story_info = a_story()
     story_info['title'] = title
     return story_info
 

@@ -58,7 +58,7 @@
               <i class="fa fa-github"></i>
             </a>
           </p>
-          <p>© Untitled | Website created with <a href="http://www.mashup-template.com/"
+          <p>© StoryVerse AI Hub | Website created with <a href="http://www.mashup-template.com/"
               title="Create website with free html template">Mashup Template</a>/<a href="https://www.unsplash.com/"
               title="Beautiful Free Images">Unsplash</a></p>
         </nav>
@@ -82,6 +82,12 @@
 
 
     <style>
+      .grid {
+    display: grid;
+    /* grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); */
+    /* gap: 16px; */
+    justify-items: start; /* Ensures items align to the start (left) */
+  }
       .sidebar {
         animation: transitionIn 0.75s;
       }
@@ -144,6 +150,14 @@
         console.log('Fetched stories:', stories); // 调试信息
         const gridContainer = document.querySelector('.grid');
 
+        // Clear previous grid items
+      while (gridContainer.firstChild) {
+        gridContainer.removeChild(gridContainer.firstChild);
+      }
+
+      // Skip the first two stories
+      const storiesToDisplay = stories.slice(2);
+
         stories.forEach((story, index) => {
           const gridItem = document.createElement('div');
           gridItem.classList.add('grid-item');
@@ -203,7 +217,7 @@
           h4.textContent = languageName;
 
           const p = document.createElement('p');
-          p.textContent = 'Discover more';
+          p.textContent = 'Read more';
 
           projectTextInner.appendChild(h3);
           projectTextInner.appendChild(h4);
