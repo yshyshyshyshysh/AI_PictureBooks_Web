@@ -305,10 +305,14 @@ document.addEventListener('DOMContentLoaded', function() {
               const h3 = document.createElement('h3');
               h3.textContent = story.title;
   
+              const h4 = document.createElement('h4');
+              h4.textContent = story.language;
+  
               const p = document.createElement('p');
               p.textContent = 'Discover more';
-  
+
               projectTextInner.appendChild(h3);
+              projectTextInner.appendChild(h4);
               projectTextInner.appendChild(p);
               projectTextHolder.appendChild(projectTextInner);
               projectDescription.appendChild(projectTextHolder);

@@ -11,14 +11,14 @@
 
   <!-- Disable tap highlight on IE -->
   <meta name="msapplication-tap-highlight" content="no">
-  
+
   <link href="./assets/apple-icon-180x180.png" rel="apple-touch-icon">
   <link href="./assets/favicon.ico" rel="icon">
 
 
 
-  <title>StoryVerse AI Hub</title>  
- 
+  <title>StoryVerse AI Hub</title>
+
   <link href="{{ url_for('static', filename='css/main.82cfd66e.css') }}" rel="stylesheet" />
 
 <body>
@@ -63,8 +63,8 @@
           </a>
         </p>
         <p>© Untitled | Website created with <a href="http://www.mashup-template.com/" title="Create website with free html template">Mashup Template</a>/<a href="https://www.unsplash.com/" title="Beautiful Free Images">Unsplash</a></p>
-      </nav>  
-    </div> 
+      </nav>
+    </div>
   </nav>
 </header>
 <main class="" id="main-collapse">
@@ -84,7 +84,7 @@
       <div class="left-arrow arrow" onclick="showPreviousImage()">&lt;</div>
       <div class="right-arrow arrow" onclick="showNextImage()">&gt;</div>
     </div>
-    
+
     <div id="translation-container">
       <!-- 文字将动态加载到这里 -->
     </div>
@@ -94,16 +94,16 @@
       <!-- 音檔将动态加载到这里 -->
     </div>
 
-    
+
   </div>
 
 </div>
-    
+
 
 
 </main>
 
-  
+
 <script src="https://www.gstatic.com/firebasejs/5.0.0/firebase-app.js"></script>
 
 <script src="https://www.gstatic.com/firebasejs/5.0.0/firebase-database.js"></script>
@@ -116,7 +116,7 @@
   document.addEventListener("DOMContentLoaded", function (event) {
     navbarToggleSidebar();
     navActivePage();
-  
+
 
 
 
@@ -140,7 +140,7 @@
       alert("You have been logged out.")
       window.location.href = "/";
     });
-    
+
   });
 
   function showNextImage() {
@@ -169,7 +169,7 @@
     const story = JSON.parse(localStorage.getItem('selectedStory'));
     console.log(story);
     if (story && story.stories) {
-      storyImages = story.stories.map(paragraph => paragraph.img);
+      storyImages = story.stories.map(paragraph => paragraph.image);
       storyAudios = story.stories.map(paragraph => paragraph.soundtrack);
       storyWord = story.stories.map(paragraph => paragraph.translation);
       console.log("story image", storyImages);
@@ -216,7 +216,7 @@ function updateTranslation(index) {
 
   <style>
     .img-responsive {
-      
+
     }
     .arrow {
       background-color: rgba(255, 255, 255, 0.5);

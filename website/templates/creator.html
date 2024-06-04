@@ -173,7 +173,8 @@
         .then(data => {
             console.log(data);
             try {
-              updateStories(data);
+              container = updateStories(data);
+              publishStories(data["storyToken"], container);
             } catch (error) {
               console.error(error);
             }
@@ -195,7 +196,7 @@
   function updateStories(tmp){ // json file
       item = {
         "title": tmp["title"],
-        "From_To": tmp["From_To"],
+        "language": tmp["language"],
         "image": tmp["image_urls"][0],
         "signature" : tmp["uid"],
         "stories": {}
@@ -210,6 +211,13 @@
       }
       const path = "/private/" + tmp["uid"] + "/mystories/" + tmp["storyToken"];
       firebase.database().ref(path).set(item);
+      return item;
+  }
+
+
+  function publishStories(token, item){
+    const path = "/public/stories/" + token;
+    firebase.database().ref(path).set(item);
   }
 
 
