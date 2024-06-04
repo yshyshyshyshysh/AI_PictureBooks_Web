@@ -76,26 +76,29 @@ def translate_to_eng(title):
     translation = translator.translate(title, dest='en')
     return translation.text
 
-def a_story():
-    story_info = {
-        'title': 'Becoming a Cat',
-        'paragraph 1': "I was an ordinary person, living a typical life in the bustling city. But one day, I woke up to find myself transformed into a small, fluffy cat!",
-        'illustration 1': "A person waking up in bed, stretching and yawning, only to discover they have transformed into a cute cat. The room is filled with morning light, and the person-turned-cat looks surprised.",
-        'paragraph 2': 'At first, I was shocked and confused by my new form. But as I explored my surroundings on four furry paws, I began to embrace the freedom and agility that came with being a cat.',
-        'illustration 2': 'The cat navigating its way around the room, jumping onto furniture and investigating its surroundings with curiosity. Its tail is held high, and its eyes are bright with wonder.',
-        'paragraph 3': 'Life as a cat was full of unexpected adventures. I chased butterflies in the garden, napped in sunbeams, and made friends with other animals in the neighborhood.',
-        'illustration 3': 'The cat frolicking in a sunlit garden, surrounded by flowers and butterflies. Nearby, birds chirp in the trees, and other animals watch with interest as the cat explores its new life.',
-        'paragraph 4': "Though I missed certain aspects of my human life, I found joy in the simplicity and spontaneity of being a cat. With each passing day, I embraced my feline nature more and more, knowing that I was exactly where I was meant to be.",
-        'illustration 4': 'The cat sitting contentedly in a cozy corner of the house, surrounded by toys and blankets. Its expression is peaceful, and it radiates a sense of acceptance and happiness in its new life as a cat.'
-    }
-    return story_info
-
 def generate_story(title):
-    # full_story = text_generation(title)
-    # story_info = extract_story_info(full_story)
-    story_info = a_story()
+    full_story = text_generation(title)
+    story_info = extract_story_info(full_story)
     story_info['title'] = title
     return story_info
+
+# def pregive_a_story():
+#     story_info = {
+#         'paragraph 1': "I was an ordinary boy, but one day I found a strange object in the forest. It was a toad's leg bone and it glowed with magic!", 
+#         'illustration 1': "A young boy holding a glowing toad's leg bone, standing in front of a giant tree. The background is filled with colorful leaves and flowers.", 
+#         'paragraph 2': 'When I touched the bone, I felt strange powers coursing through my body. Suddenly, I grew scales, wings, and a fiery breath!', 
+#         'illustration 2': 'A boy transformed into a dragon, standing on his hind legs with wings spread wide. He is surrounded by flames and smoke.', 
+#         'paragraph 3': 'Now I can breathe fire and fly through the skies! People call me the Spit Dragon because of my fiery breath. But sometimes I miss being a human boy.', 
+#         'illustration 3': 'A dragon flying over a village, with people looking up in amazement. The dragon has a sad expression on his face, longing for his former life as a human.', 
+#         'paragraph 4': "One day, I will find a way to turn back into a boy. Until then, I'll soar the skies and protect my forest home with my fiery breath!", 
+#         'illustration 4': 'A dragon perched on a branch of a tree, looking out over the landscape with a determined expression. The sun is setting in the background, casting warm colors across the scene.', 'title': 'I became a spit dragon'
+#         }
+#     return story_info
+
+# def generate_story(title):
+#     story_info = pregive_a_story()
+#     story_info['title'] = title
+#     return story_info
 
 """Text-to-Image > story_images"""
 
