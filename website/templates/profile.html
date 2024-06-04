@@ -236,7 +236,7 @@ function handleSubmit() {
   alert("Profile updated!");
   setTimeout(function() {
     updateUserInfo(displayName, email, idNum, phoneNumber, bio, pronoun);
-    }, 500); // 延遲 1 秒顯示通知
+    }, 500); // 延遲 0.5 秒顯示通知
 }
 
 // function handleSubmit() {
@@ -269,7 +269,15 @@ document.addEventListener('DOMContentLoaded', function() {
           const stories = Object.values(data);
           console.log('Fetched stories:', stories); // 调试信息
           const gridContainer = document.querySelector('.grid');
-  
+ 
+          // Clear previous grid items
+      while (gridContainer.firstChild) {
+        gridContainer.removeChild(gridContainer.firstChild);
+      }
+
+      // Skip the first two stories
+      const storiesToDisplay = stories.slice(2);
+
           stories.forEach((story, index) => {
               const gridItem = document.createElement('div');
               gridItem.classList.add('grid-item');
@@ -293,7 +301,7 @@ document.addEventListener('DOMContentLoaded', function() {
               
               projectDescription.addEventListener('click', function() {
                 localStorage.setItem('selectedStory', JSON.stringify(story));
-                window.location.href = '/project.html';
+                window.location.href = '/project';
               });
   
               const projectTextHolder = document.createElement('div');
@@ -305,10 +313,34 @@ document.addEventListener('DOMContentLoaded', function() {
               const h3 = document.createElement('h3');
               h3.textContent = story.title;
   
+              const h4 = document.createElement('h4');
+              const all_languages = {
+                  'en': '英語',
+                  'es': '西班牙語',
+                  'fr': '法語',
+                  'de': '德語',
+                  'it': '意大利語',
+                  'pt': '葡萄牙語',
+                  'pl': '波蘭語',
+                  'tr': '土耳其語',
+                  'ru': '俄語',
+                  'nl': '荷蘭語',
+                  'cs': '捷克語',
+                  'ar': '阿拉伯語',
+                  'zh-cn': '簡體中文',
+                  'hu': '匈牙利語',
+                  'ko': '韓語',
+                  'ja': '日語',
+                  'hi': '印地語'
+              };
+              const languageName = all_languages[story.language] || '未知語言';
+              h4.textContent = languageName;
+  
               const p = document.createElement('p');
               p.textContent = 'Discover more';
-  
+
               projectTextInner.appendChild(h3);
+              projectTextInner.appendChild(h4);
               projectTextInner.appendChild(p);
               projectTextHolder.appendChild(projectTextInner);
               projectDescription.appendChild(projectTextHolder);

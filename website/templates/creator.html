@@ -173,13 +173,14 @@
         .then(data => {
             console.log(data);
             try {
-              updateStories(data);
+              container = updateStories(data);
+              publishStories(data["storyToken"], container);
             } catch (error) {
               console.error(error);
             }
 
             console.log("push to database");
-            // myStoryImages(uid);
+            myStoryImages(uid);
         })
         .catch(error => {
             console.error('Error:', error);
@@ -195,7 +196,7 @@
   function updateStories(tmp){ // json file
       item = {
         "title": tmp["title"],
-        "From_To": tmp["From_To"],
+        "language": tmp["language"],
         "image": tmp["image_urls"][0],
         "signature" : tmp["uid"],
         "stories": {}
@@ -210,6 +211,13 @@
       }
       const path = "/private/" + tmp["uid"] + "/mystories/" + tmp["storyToken"];
       firebase.database().ref(path).set(item);
+      return item;
+  }
+
+
+  function publishStories(token, item){
+    const path = "/public/stories/" + token;
+    firebase.database().ref(path).set(item);
   }
 
 
@@ -227,7 +235,7 @@ function myStoryImages(id) {
         const gridContainer = document.querySelector('.grid');
 
         if (stories.length > 0) {
-            const story = stories[0]; // 只取第一個故事
+            const story = stories[stories.length-1]; // 只取最新一個故事
             const gridItem = document.createElement('div');
             gridItem.classList.add('grid-item');
             gridItem.setAttribute('data-id', story.signature);
@@ -262,10 +270,34 @@ function myStoryImages(id) {
             const h3 = document.createElement('h3');
             h3.textContent = story.title;
 
+            const h4 = document.createElement('h4');
+              const all_languages = {
+                  'en': '英語',
+                  'es': '西班牙語',
+                  'fr': '法語',
+                  'de': '德語',
+                  'it': '意大利語',
+                  'pt': '葡萄牙語',
+                  'pl': '波蘭語',
+                  'tr': '土耳其語',
+                  'ru': '俄語',
+                  'nl': '荷蘭語',
+                  'cs': '捷克語',
+                  'ar': '阿拉伯語',
+                  'zh-cn': '簡體中文',
+                  'hu': '匈牙利語',
+                  'ko': '韓語',
+                  'ja': '日語',
+                  'hi': '印地語'
+              };
+              const languageName = all_languages[story.language] || '未知語言';
+              h4.textContent = languageName;
+
             const p = document.createElement('p');
             p.textContent = 'Discover more';
 
             projectTextInner.appendChild(h3);
+            projectTextInner.appendChild(h4);
             projectTextInner.appendChild(p);
             projectTextHolder.appendChild(projectTextInner);
             projectDescription.appendChild(projectTextHolder);

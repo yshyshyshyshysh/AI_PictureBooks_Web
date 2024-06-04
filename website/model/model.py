@@ -26,7 +26,7 @@ def text_generation(title):
     )
     lcpp_llm.params.n_gpu_layers
     prompt = f'''
-    Taking Andersen's story as an example, write a 'very short' picture book story. It should includes four paragraphs (no more than 30 words) and illustration description in each paragraph.
+    Taking Andersen's story as an example, write a 'very short' picture book story in English. It should includes four paragraphs (no more than 30 words) and four illustration descriptions.
     Title: {title}.
     Format please follows:
         Title:
@@ -44,6 +44,7 @@ def text_generation(title):
         response = lcpp_llm(prompt=prompt, max_tokens=1200, temperature=0.5, top_p=0.95, repeat_penalty=1.2, top_k=150, echo=True)
         full_story = response["choices"][0]["text"]
         if all(full_story.lower().count(word.lower()) == 2 for word in split_words):
+            print(f'full_story: {full_story}')
             return full_story
     # print('RUN THE MODEL!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
     # response = lcpp_llm(prompt=prompt, max_tokens=1200, temperature=0.5, top_p=0.95, repeat_penalty=1.2, top_k=150, echo=True)
@@ -80,6 +81,24 @@ def generate_story(title):
     story_info = extract_story_info(full_story)
     story_info['title'] = title
     return story_info
+
+# def pregive_a_story():
+#     story_info = {
+#         'paragraph 1': "I was an ordinary boy, but one day I found a strange object in the forest. It was a toad's leg bone and it glowed with magic!", 
+#         'illustration 1': "A young boy holding a glowing toad's leg bone, standing in front of a giant tree. The background is filled with colorful leaves and flowers.", 
+#         'paragraph 2': 'When I touched the bone, I felt strange powers coursing through my body. Suddenly, I grew scales, wings, and a fiery breath!', 
+#         'illustration 2': 'A boy transformed into a dragon, standing on his hind legs with wings spread wide. He is surrounded by flames and smoke.', 
+#         'paragraph 3': 'Now I can breathe fire and fly through the skies! People call me the Spit Dragon because of my fiery breath. But sometimes I miss being a human boy.', 
+#         'illustration 3': 'A dragon flying over a village, with people looking up in amazement. The dragon has a sad expression on his face, longing for his former life as a human.', 
+#         'paragraph 4': "One day, I will find a way to turn back into a boy. Until then, I'll soar the skies and protect my forest home with my fiery breath!", 
+#         'illustration 4': 'A dragon perched on a branch of a tree, looking out over the landscape with a determined expression. The sun is setting in the background, casting warm colors across the scene.', 'title': 'I became a spit dragon'
+#         }
+#     return story_info
+
+# def generate_story(title):
+#     story_info = pregive_a_story()
+#     story_info['title'] = title
+#     return story_info
 
 """Text-to-Image > story_images"""
 

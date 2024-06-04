@@ -58,7 +58,7 @@
               <i class="fa fa-github"></i>
             </a>
           </p>
-          <p>© Untitled | Website created with <a href="http://www.mashup-template.com/"
+          <p>© StoryVerse AI Hub | Website created with <a href="http://www.mashup-template.com/"
               title="Create website with free html template">Mashup Template</a>/<a href="https://www.unsplash.com/"
               title="Beautiful Free Images">Unsplash</a></p>
         </nav>
@@ -82,6 +82,12 @@
 
 
     <style>
+      .grid {
+    display: grid;
+    /* grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); */
+    /* gap: 16px; */
+    justify-items: start; /* Ensures items align to the start (left) */
+  }
       .sidebar {
         animation: transitionIn 0.75s;
       }
@@ -144,6 +150,14 @@
         console.log('Fetched stories:', stories); // 调试信息
         const gridContainer = document.querySelector('.grid');
 
+        // Clear previous grid items
+      while (gridContainer.firstChild) {
+        gridContainer.removeChild(gridContainer.firstChild);
+      }
+
+      // Skip the first two stories
+      const storiesToDisplay = stories.slice(2);
+
         stories.forEach((story, index) => {
           const gridItem = document.createElement('div');
           gridItem.classList.add('grid-item');
@@ -167,7 +181,7 @@
 
           projectDescription.addEventListener('click', function () {
             localStorage.setItem('selectedStory', JSON.stringify(story));
-            window.location.href = '/project.html';
+            window.location.href = '/project';
           });
 
           const projectTextHolder = document.createElement('div');
@@ -179,10 +193,34 @@
           const h3 = document.createElement('h3');
           h3.textContent = story.title;
 
+          const h4 = document.createElement('h4');
+          const all_languages = {
+              'en': '英語',
+              'es': '西班牙語',
+              'fr': '法語',
+              'de': '德語',
+              'it': '意大利語',
+              'pt': '葡萄牙語',
+              'pl': '波蘭語',
+              'tr': '土耳其語',
+              'ru': '俄語',
+              'nl': '荷蘭語',
+              'cs': '捷克語',
+              'ar': '阿拉伯語',
+              'zh-cn': '簡體中文',
+              'hu': '匈牙利語',
+              'ko': '韓語',
+              'ja': '日語',
+              'hi': '印地語'
+          };
+          const languageName = all_languages[story.language] || '未知語言';
+          h4.textContent = languageName;
+
           const p = document.createElement('p');
-          p.textContent = 'Discover more';
+          p.textContent = 'Read more';
 
           projectTextInner.appendChild(h3);
+          projectTextInner.appendChild(h4);
           projectTextInner.appendChild(p);
           projectTextHolder.appendChild(projectTextInner);
           projectDescription.appendChild(projectTextHolder);

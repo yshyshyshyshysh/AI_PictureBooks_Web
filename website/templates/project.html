@@ -11,14 +11,14 @@
 
   <!-- Disable tap highlight on IE -->
   <meta name="msapplication-tap-highlight" content="no">
-  
+
   <link href="./assets/apple-icon-180x180.png" rel="apple-touch-icon">
   <link href="./assets/favicon.ico" rel="icon">
 
 
 
-  <title>StoryVerse AI Hub</title>  
- 
+  <title>StoryVerse AI Hub</title>
+
   <link href="{{ url_for('static', filename='css/main.82cfd66e.css') }}" rel="stylesheet" />
 
 <body>
@@ -63,8 +63,8 @@
           </a>
         </p>
         <p>© Untitled | Website created with <a href="http://www.mashup-template.com/" title="Create website with free html template">Mashup Template</a>/<a href="https://www.unsplash.com/" title="Beautiful Free Images">Unsplash</a></p>
-      </nav>  
-    </div> 
+      </nav>
+    </div>
   </nav>
 </header>
 <main class="" id="main-collapse">
@@ -74,49 +74,49 @@
   <div class="col-xs-12 col-md-8">
 
     <div class="section-container-spacer">
-
-    </div>
-
-      <div class="section-container-spacer">
         <div id="story-images-container" class="row">
           <!-- 图片将动态加载到这里 -->
         </div>
       <div class="left-arrow arrow" onclick="showPreviousImage()">&lt;</div>
       <div class="right-arrow arrow" onclick="showNextImage()">&gt;</div>
+      <div id="translation-container">
+        <!-- 文字将动态加载到这里 -->
+      </div>
+  
+  
+      <div id="audio-container">
+        <!-- 音檔将动态加载到这里 -->
+      </div>
     </div>
+
     
-    <div id="translation-container">
-      <!-- 文字将动态加载到这里 -->
+
+    <div id="page-number-container" style="text-align: center; font-size: 1.2em; margin-bottom: 50px;">
+      <!-- 页码将动态加载到这里 -->
     </div>
 
-
-    <div id="audio-container">
-      <!-- 音檔将动态加载到这里 -->
-    </div>
-
-    
   </div>
 
 </div>
-    
+
 
 
 </main>
 
-  
+
 <script src="https://www.gstatic.com/firebasejs/5.0.0/firebase-app.js"></script>
 
 <script src="https://www.gstatic.com/firebasejs/5.0.0/firebase-database.js"></script>
 <script src="{{ url_for('static', filename='hello-world/public/controller/config.js') }}"></script>
 <script src="{{ url_for('static', filename='hello-world/public/controller/userStatus.js') }}"></script>
 <script src="{{ url_for('static', filename='hello-world/public/controller/insert.js') }}"></script>
-<!-- <script src="{{ url_for('static', filename='js/login.js') }}"></script> -->
+<script src="{{ url_for('static', filename='js/login.js') }}"></script>
 <script src="{{ url_for('static', filename='js/main.85741bff.js') }}"></script>
 <script>
   document.addEventListener("DOMContentLoaded", function (event) {
     navbarToggleSidebar();
     navActivePage();
-  
+
 
 
 
@@ -140,7 +140,7 @@
       alert("You have been logged out.")
       window.location.href = "/";
     });
-    
+
   });
 
   function showNextImage() {
@@ -148,6 +148,8 @@
     displayImage(currentImageIndex);
     updateAudio(currentImageIndex);
     updateTranslation(currentImageIndex);
+    updatePageNumber(currentImageIndex);
+    updatePageNumber(currentImageIndex);
   }
 
   function showPreviousImage() {
@@ -157,7 +159,13 @@
     updateTranslation(currentImageIndex);
   }
 
-
+  document.addEventListener('keydown', (event) => {
+  if (event.key === 'ArrowRight') {
+    showNextImage();
+  } else if (event.key === 'ArrowLeft') {
+    showPreviousImage();
+  }
+});
 
   let currentImageIndex = 0;
   let storyImages = [];
@@ -169,7 +177,7 @@
     const story = JSON.parse(localStorage.getItem('selectedStory'));
     console.log(story);
     if (story && story.stories) {
-      storyImages = story.stories.map(paragraph => paragraph.img);
+      storyImages = story.stories.map(paragraph => paragraph.image);
       storyAudios = story.stories.map(paragraph => paragraph.soundtrack);
       storyWord = story.stories.map(paragraph => paragraph.translation);
       console.log("story image", storyImages);
@@ -177,6 +185,7 @@
         displayImage(currentImageIndex);
         updateAudio(currentImageIndex);
         updateTranslation(currentImageIndex);
+        updatePageNumber(currentImageIndex);
       } else {
         console.error('No images found for the selected story.');
       }
@@ -200,23 +209,76 @@
                 Your browser does not support the audio element.
             </audio>
         `;
-}
-function updateTranslation(index) {
-  const translationContainer = document.getElementById('translation-container');
-  if (storyWord[index]) {
-      translationContainer.innerHTML = `
-          <p>${storyWord[index]}</p>
-      `;
-  } else {
-      translationContainer.innerHTML = ''; // 清空翻譯文本容器
   }
-}
+  function updateTranslation(index) {
+    const translationContainer = document.getElementById('translation-container');
+    if (storyWord[index]) {
+        translationContainer.innerHTML = `
+            <p style="font-size: 1.5em;">${storyWord[index]}</p>
+        `;
+    } else {
+        translationContainer.innerHTML = ''; // 清空翻譯文本容器
+    }
+  }
+  function updatePageNumber(index) {
+    const pageNumberContainer = document.getElementById('page-number-container');
+    pageNumberContainer.innerHTML = `Page ${index + 1} of ${storyImages.length}`;
+  }
   loadStory();
 </script>
 
   <style>
-    .img-responsive {
+    #translation-container {
+      /* float: right; */
+      position: absolute;
+      left: 1024px;
+      /* bottom: 384px; */
+      flex-wrap: wrap;
+      min-width: 300px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 999;
+      /* text-align: center; */
+      /* General container styles */
+      /* width: 100%; */
+      /* max-width: 600px; Maximum width for readability */
+      /* margin: 0 auto; Center align the container */
+      /* padding: 20px; Add padding around the text */
+      /* background-color: #f9f9f9; Light background color */
+      /* border: 1px solid #ddd; Light border */
+      /* border-radius: 8px; Rounded corners */
+      /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); Subtle shadow for depth */
+
+      /* Text styles */
+      /* font-family: Arial, sans-serif; Font family */
+      /* font-size: 16px; Base font size */
+      /* color: #333; Text color */
+      /* line-height: 1.5; Line height for readability */
+    }
+
+    #audio-container {
       
+      position: absolute;
+      left: 1024px;
+      bottom: 200px;
+      /* General container styles */
+      /* width: 100%; */
+      /* max-width: 600px; Maximum width */
+      /* margin: 20px auto; Center align with margin at the top */
+      /* padding: 20px; Add padding */
+      /* background-color: #f0f8ff; Light blue background */
+      /* border: 1px solid #ccd; Light border */
+      /* border-radius: 8px; Rounded corners */
+      /* box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); Subtle shadow for depth */
+
+      /* Text styles */
+      /* font-family: Arial, sans-serif; Font family */
+      /* font-size: 16px; Base font size */
+      /* color: #333; Text color */
+      /* line-height: 1.5; Line height for readability */
+    }
+    .img-responsive {
+      position: relative;
     }
     .arrow {
       background-color: rgba(255, 255, 255, 0.5);
@@ -234,7 +296,7 @@ function updateTranslation(index) {
       left: 5px; /* 將左箭頭放在圖片的左側 */
     }
     .right-arrow {
-      right: 5px; /* 將右箭頭放在圖片的右側 */
+      right: 5px; /*將右箭頭放在圖片的右側*/
     }
     .arrow:hover {
       background-color: rgba(0, 0, 0, 0.5);
