@@ -17,8 +17,8 @@ function loadTask(path, file) {
 
 // here can check the upload progress
 // do not called this by itself
-        `// if dont need progress, simply comment the snpashot code
-        `function uploadProgress(file){
+        // if dont need progress, simply comment the snpashot code
+        function uploadProgress(file){
     const path = file ? (file.type.startsWith('image') ? "/images/" : (file.type.startsWith('audio') ? "/audio/" : "/")) : "";
 
     let task = loadTask(path, file);

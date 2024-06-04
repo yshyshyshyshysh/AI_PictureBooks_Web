@@ -180,7 +180,7 @@
             }
 
             console.log("push to database");
-            // myStoryImages(uid);
+            myStoryImages(uid);
         })
         .catch(error => {
             console.error('Error:', error);
@@ -235,7 +235,7 @@ function myStoryImages(id) {
         const gridContainer = document.querySelector('.grid');
 
         if (stories.length > 0) {
-            const story = stories[0]; // 只取第一個故事
+            const story = stories[stories.length-1]; // 只取最新一個故事
             const gridItem = document.createElement('div');
             gridItem.classList.add('grid-item');
             gridItem.setAttribute('data-id', story.signature);
@@ -270,10 +270,14 @@ function myStoryImages(id) {
             const h3 = document.createElement('h3');
             h3.textContent = story.title;
 
+            const h4 = document.createElement('h4');
+            h4.textContent = story.language;
+
             const p = document.createElement('p');
             p.textContent = 'Discover more';
 
             projectTextInner.appendChild(h3);
+            projectTextInner.appendChild(h4);
             projectTextInner.appendChild(p);
             projectTextHolder.appendChild(projectTextInner);
             projectDescription.appendChild(projectTextHolder);
