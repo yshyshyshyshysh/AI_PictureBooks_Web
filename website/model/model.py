@@ -26,7 +26,7 @@ def text_generation(title):
     )
     lcpp_llm.params.n_gpu_layers
     prompt = f'''
-    Taking Andersen's story as an example, write a 'very short' picture book story. It should includes four paragraphs (no more than 30 words) and illustration description in each paragraph.
+    Taking Andersen's story as an example, write a 'very short' picture book story in English. It should includes four paragraphs (no more than 30 words) and four illustration descriptions.
     Title: {title}.
     Format please follows:
         Title:
@@ -44,6 +44,7 @@ def text_generation(title):
         response = lcpp_llm(prompt=prompt, max_tokens=1200, temperature=0.5, top_p=0.95, repeat_penalty=1.2, top_k=150, echo=True)
         full_story = response["choices"][0]["text"]
         if all(full_story.lower().count(word.lower()) == 2 for word in split_words):
+            print(f'full_story: {full_story}')
             return full_story
     # print('RUN THE MODEL!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!')
     # response = lcpp_llm(prompt=prompt, max_tokens=1200, temperature=0.5, top_p=0.95, repeat_penalty=1.2, top_k=150, echo=True)
@@ -77,6 +78,7 @@ def translate_to_eng(title):
 
 def generate_story(title):
     full_story = text_generation(title)
+
     story_info = extract_story_info(full_story)
     story_info['title'] = title
     return story_info

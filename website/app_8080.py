@@ -63,61 +63,62 @@ def creator():
     uid = data.get('uid')
     storyToken = data.get('storyToken')
 
-    # # Using here to test the validation of code...
-    # data = {
-    #     "title": "兔子在天上飛1",
-    #     "From_To": "Eng:Chinese",
-    #     "image_urls": ["https://firebasestorage.googleapis.com/v0/b/mywebsite-vivian.appspot.com/o/Rabbit%20flying%20in%20the%20sky%2Fimage_0.jpg?alt=media&token=95529af0-33be-4682-a0d6-5c5f13a2946c","https://firebasestorage.googleapis.com/v0/b/mywebsite-vivian.appspot.com/o/Rabbit%20flying%20in%20the%20sky%2Fimage_0.jpg?alt=media&token=95529af0-33be-4682-a0d6-5c5f13a2946c","https://firebasestorage.googleapis.com/v0/b/mywebsite-vivian.appspot.com/o/Rabbit%20flying%20in%20the%20sky%2Fimage_0.jpg?alt=media&token=95529af0-33be-4682-a0d6-5c5f13a2946c",
-    #     "https://firebasestorage.googleapis.com/v0/b/mywebsite-vivian.appspot.com/o/Rabbit%20flying%20in%20the%20sky%2Fimage_0.jpg?alt=media&token=95529af0-33be-4682-a0d6-5c5f13a2946c"
-    #     ],
-    #     "paragraphs": [
-    #         "一只小兔子总是夢想著飞行，所以他制作了翼膜，然後跳下地面。",
-    #         "兔子一飛一舞，高飞到云海上，發現了天空中的其他生物。",
-    #         "兔子感謝自己制作的翼膜，現在可以飞上天空。",
-    #         "但是他知道，有時候也要返回地面，繼續努力成長。"
-    #     ],
-    #     "translations": [
-    #         "A little rabbit always dreamed of flying, so he made a wing membrane and jumped off the ground.",
-    #         "The rabbit fluttered and flew to the sea of ​​clouds and found other creatures in the sky.",
-    #         "The rabbit thanks to the wing membrane he made, and now he can fly into the sky.",
-    #         "But he knew that sometimes he had to return to the ground and continue to work hard."
-    #     ],
-    #     "speech_urls": [
-    #         "https://firebasestorage.googleapis.com/v0/b/mywebsite-vivian.appspot.com/o/audio%2Fdramatic-background-music-for-short-videos-1-minute-little-alicia-155718.mp3?alt=media&token=92424fd6-1d15-4956-a21d-2e2860b38a0a",
-    #         "https://firebasestorage.googleapis.com/v0/b/mywebsite-vivian.appspot.com/o/audio%2Fdramatic-background-music-for-short-videos-1-minute-little-alicia-155718.mp3?alt=media&token=92424fd6-1d15-4956-a21d-2e2860b38a0a",
-    #         "https://firebasestorage.googleapis.com/v0/b/mywebsite-vivian.appspot.com/o/audio%2Fdramatic-background-music-for-short-videos-1-minute-little-alicia-155718.mp3?alt=media&token=92424fd6-1d15-4956-a21d-2e2860b38a0a",
-    #         "https://firebasestorage.googleapis.com/v0/b/mywebsite-vivian.appspot.com/o/audio%2Fdramatic-background-music-for-short-videos-1-minute-little-alicia-155718.mp3?alt=media&token=92424fd6-1d15-4956-a21d-2e2860b38a0a"
-    #     ],
-    #     "uid": uid,
-    #     "storyToken": storyToken
-    # }
-
-
+    data = {
+        "title": "小牛天上飛1",
+        "From_To": "Eng:Chinese",
+        "image_urls": ["https://firebasestorage.googleapis.com/v0/b/mywebsite-vivian.appspot.com/o/Rabbit%20flying%20in%20the%20sky%2Fimage_0.jpg?alt=media&token=95529af0-33be-4682-a0d6-5c5f13a2946c","https://firebasestorage.googleapis.com/v0/b/mywebsite-vivian.appspot.com/o/Rabbit%20flying%20in%20the%20sky%2Fimage_0.jpg?alt=media&token=95529af0-33be-4682-a0d6-5c5f13a2946c","https://firebasestorage.googleapis.com/v0/b/mywebsite-vivian.appspot.com/o/Rabbit%20flying%20in%20the%20sky%2Fimage_0.jpg?alt=media&token=95529af0-33be-4682-a0d6-5c5f13a2946c",
+        "https://firebasestorage.googleapis.com/v0/b/mywebsite-vivian.appspot.com/o/Rabbit%20flying%20in%20the%20sky%2Fimage_0.jpg?alt=media&token=95529af0-33be-4682-a0d6-5c5f13a2946c"
+        ],
+        "paragraphs": [
+            "一只小兔子总是夢想著飞行，所以他制作了翼膜，然後跳下地面。",
+            "兔子一飛一舞，高飞到云海上，發現了天空中的其他生物。",
+            "兔子感謝自己制作的翼膜，現在可以飞上天空。",
+            "但是他知道，有時候也要返回地面，繼續努力成長。"
+        ],
+        "translations": [
+            "A little rabbit always dreamed of flying, so he made a wing membrane and jumped off the ground.",
+            "The rabbit fluttered and flew to the sea of ​​clouds and found other creatures in the sky.",
+            "The rabbit thanks to the wing membrane he made, and now he can fly into the sky.",
+            "But he knew that sometimes he had to return to the ground and continue to work hard."
+        ],
+        "speech_urls": [
+            "https://firebasestorage.googleapis.com/v0/b/mywebsite-vivian.appspot.com/o/audio%2Fdramatic-background-music-for-short-videos-1-minute-little-alicia-155718.mp3?alt=media&token=92424fd6-1d15-4956-a21d-2e2860b38a0a",
+            "https://firebasestorage.googleapis.com/v0/b/mywebsite-vivian.appspot.com/o/audio%2Fdramatic-background-music-for-short-videos-1-minute-little-alicia-155718.mp3?alt=media&token=92424fd6-1d15-4956-a21d-2e2860b38a0a",
+            "https://firebasestorage.googleapis.com/v0/b/mywebsite-vivian.appspot.com/o/audio%2Fdramatic-background-music-for-short-videos-1-minute-little-alicia-155718.mp3?alt=media&token=92424fd6-1d15-4956-a21d-2e2860b38a0a",
+            "https://firebasestorage.googleapis.com/v0/b/mywebsite-vivian.appspot.com/o/audio%2Fdramatic-background-music-for-short-videos-1-minute-little-alicia-155718.mp3?alt=media&token=92424fd6-1d15-4956-a21d-2e2860b38a0a"
+        ],
+        "uid": uid,
+        "storyToken": storyToken
+    }
     # return jsonify(data)
 
-
-    # story_info = {'paragraph 1': "I was an ordinary boy, but one day I found a strange object in the forest. It was a toad's leg bone and it glowed with magic!", 'illustration 1': "A young boy holding a glowing toad's leg bone, standing in front of a giant tree. The background is filled with colorful leaves and flowers.", 'paragraph 2': 'When I touched the bone, I felt strange powers coursing through my body. Suddenly, I grew scales, wings, and a fiery breath!', 'illustration 2': 'A boy transformed into a dragon, standing on his hind legs with wings spread wide. He is surrounded by flames and smoke.', 'paragraph 3': 'Now I can breathe fire and fly through the skies! People call me the Spit Dragon because of my fiery breath. But sometimes I miss being a human boy.', 'illustration 3': 'A dragon flying over a village, with people looking up in amazement. The dragon has a sad expression on his face, longing for his former life as a human.', 'paragraph 4': "One day, I will find a way to turn back into a boy. Until then, I'll soar the skies and protect my forest home with my fiery breath!", 'illustration 4': 'A dragon perched on a branch of a tree, looking out over the landscape with a determined expression. The sun is setting in the background, casting warm colors across the scene.', 'title': 'I became a spit dragon'}
     title_eng = translate_to_eng(title)
     story_info = generate_story(title)
+    print("...SUCCESSFULLY generated story")
     print(story_info)
+
     translation = text_translations(story_info, language)
+    print("...SUCCESSFULLY generated translation")
     print(translation)
+
     image = text_to_images(story_info, token)
+    print("...SUCCESSFULLY generated image")
+
     speeches = text_to_speeches(translation, language)
-
-
-
-
+    print("...SUCCESSFULLY generated speeches")
 
     story_data = {
         'title': title,
         'story': story_info,
         'translation': translation
     }
+    print("...check infomation")
+    print(story_data)
+
+
     json_blob = bucket.blob(f'{title_eng}/{title_eng}.json')
     json_blob.upload_from_string(json.dumps(story_data), content_type='application/json')
     json_url = json_blob.generate_signed_url(timedelta(days=365))
-
 
     image_url = []
     for i, img in enumerate(image):
@@ -132,7 +133,6 @@ def creator():
         blob.upload_from_file(img_bytes, content_type='image/jpg')
         image_url.append(blob.generate_signed_url(timedelta(days=365)))
 
-
     mp3_urls = []
     for i, speech_file in enumerate(speeches):
         blob = bucket.blob(f'{title_eng}/paragraph_{i}.mp3')
@@ -144,7 +144,6 @@ def creator():
         os.remove(f'/home/webapp/AI_PictureBooks_Web/website/model/speech/paragraph {i}.mp3')
 
     language_info = f'中文翻譯成{language}'
-
     log_blob = bucket.blob('story_logs.json')
     log_data = json.loads(log_blob.download_as_text()) if log_blob.exists() else []
     log_entry = {
@@ -157,19 +156,32 @@ def creator():
         'uid': uid,
         "storyToken": storyToken
     }
+
+    paragraphs = [v for k, v in story_data["story"].items() if k.startswith("paragraph")]
+
     log_data.append(log_entry)
     log_blob.upload_from_string(json.dumps(log_data), content_type='application/json')
 
-    # print(">>> PUSH INTO DATABASE")
-    # db=firestore.client()
-    # collection_ref = db.collection(uid)
-    # doc_ref = collection_ref.add(log_entry)
-
+    print("...check infomation")
+    print(log_entry)
+    
     # https://firebasestorage.googleapis.com/v0/b/webapp-ecc1b.appspot.com/o/story_logs.json?alt=media&token=1560ce88-e76f-473f-a38d-d7caec27c511
+
+
+    retData = {
+        "title": title,
+        "From_To": "Eng:Chinese",
+        "paragraghs": paragraphs,
+        "translations": story_data["translation"],
+        "image_urls": image_url,
+        "speech_urls": mp3_urls,
+        "uid": uid,  # Replace with actual UID
+        "storyToken": storyToken  # Replace with actual storyToken
+    }
 
     # return jsonify({'story': json_url,'image_urls': image_url})
     # return jsonify({'speech': mp3_urls})
-    return jsonify({'story': json_url,'image_urls': image_url,'speech': mp3_urls})
+    return jsonify(retData)
 
 if __name__ == "__main__":
     app.run(debug=True, port=8080)
