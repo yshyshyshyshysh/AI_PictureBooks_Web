@@ -1,6 +1,6 @@
 # StoryVerse AI Hub: A Website for Fun Language Learning with AI-Generated Picture Books
 
-**`June 5, 2024 / by Yu-Shin, Hu`**
+**`June 5, 2024 / by Yu-Shin, Hu and collaborators (see sidebar)`**
 
 
 ## How to run
