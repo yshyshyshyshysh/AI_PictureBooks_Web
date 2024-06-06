@@ -3,6 +3,9 @@
 **`June 5, 2024 / by Yu-Shin, Hu and collaborators (see sidebar)`**
 
 
+[Go see the demo!](https://www.youtube.com/watch?v=iFsHQ6Nd-lY)
+
+
 ## How to run
 
 -   Go to website folder: `cd /home/webapp/AI_PictureBooks_Web/website`
