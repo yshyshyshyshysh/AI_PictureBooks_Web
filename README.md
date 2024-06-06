@@ -12,7 +12,7 @@
 
 ## Frontend
 
--   Explore page: /(index.html)
+-   Explore page: / (index.html)
 -   Personal page: /profile (profile.html)
 -   Registration page: /signup (signup.html)
 -   Login page: /contact (contact.html)
