@@ -18,7 +18,8 @@ import shutil
 app = Flask(__name__)
 
 #  firebase
-cred = credentials.Certificate("/home/webapp/AI_PictureBooks_Web/website/templates/firebaseconfig.json")
+# cred = credentials.Certificate("/home/webapp/AI_PictureBooks_Web/website/templates/firebaseconfig.json")
+cred = credentials.Certificate("/home/webapp/firebaseconfig.json")
 firebase_admin.initialize_app(cred, {
     'storageBucket': 'mywebsite-vivian.appspot.com'
 })

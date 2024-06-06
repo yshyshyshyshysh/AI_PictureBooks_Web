@@ -1,8 +1,8 @@
 {
   "type": "service_account",
   "project_id": "mywebsite-vivian",
-  "private_key_id": "fbced7075e45af144416bdfd182b41c8295545a8",
-  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCgKHX2xnFTYxte\nASPnVtB0K43ELCrGv8Z12sSE5evG24v0w/S6edWjcdH6Z4x+FQCbIjQSHYw96WxD\ne9FsBbkcMmxjSk3lzbEDbMwnFpJ0lrjNKoIsA0flGcXwtBfKhsHypFdU/GB62c6y\njFkI2rBeY1kRf84b2cWmgsrnZUUwte96LkANQqfmDERXUBxqc8oaK6sCH7SAcULL\nL1W+9fUWW1JwJyiaEKg808yMAiJolcvuD0NV9bDLHzhpf/AAVl5Nx75fqUqfE5dg\n3M7herFbJ9JzFFz+P9BJS6RDB49HvQAEgJ1W8/lSYrE0HryWLSgic0f4YoJ76zzz\njxoYUxpzAgMBAAECggEAB+oin5CsRllTdOXMMcEnNAEi/wV1El/6csCI4vhpxRNR\nwJrJG/NWt2kHM2oClgh7qy7u29D8qTfr0w8/XiiPk/EkohN981P4N28c96GJ7fEK\nLjliOBfsFEpIbzNh1ERXOU0dyQ61GzJq9dqHBoT9dOymmNLJYLRLrDAyeWpBF728\nf6yPPO59sl7z3jjj9vu6We9r7uPfoJXqSAKf7SpYoYvvzdDV9FMVbx1sGPQqipeM\nZRpYaSWBPiKVQ2dvIgHdCPogXO6fJFQqKNZL8M28/wphWk86iN/WJgAFv+0q5Rai\n1aUWWcwZm5GaabJXu1NCHGet6KIlARuUgQNKjEoHYQKBgQDeQa81QlapynOBzs0y\n2TCusPFLcJMqqIadHsnEDlBlE9ziDW4NVLeFi88ltqs4bqntwrO4sN8h4rGUjrUT\nJaM4+k8lfc/vIthe/dtOW0dmRsVPIELEjjqY16lts7feVrD1L6mMevabstubni37\nPBbahZCSg16hCfVhSwGOG+Q9nwKBgQC4eTq6XX4SEHqmuNOuc6vDK7/CPp6tiRDj\nmQnG0yQ1YU2JA7aYYuGxAl3gZqflVOvXsFuh+hgpO2LwAJLNxke4cPEqnCi2asp2\ns0eG6z6+h2sEzBSPDKhxQ9OpjDwuZFTgBQLN6t4BbikgtRO9ARwXd6VK4T/uQb/f\n7sLOGcrKrQKBgQCdpS92cnBwDIZze1D3ETDDqAPuw5HPPywERDNO2exSVY1l1arK\nz91AX1N156R46Z2kZGb/yIzsRxQ4UCTFyPuGTZ1X9W5Iq4mXjy4/3OS++dG39yUE\nr/GGOeoWQtRXY1wu/TigyRMkiu/T6JWqzwtSwkwyb/Xt+ddPxFj9CHGS9wKBgQCH\nvPRgs3CTnDqTuQZRpF1rtCJarLcXm/aocjCGc1B+UsW5ntjZ0lCdbc9j0kWScuVD\nBUq3qg3jMQaA8PsUnOSjK7/ZCaTPbU7i/tIPzcOScJRnqD8sbzT2euEhLcYOoNbv\nK+C/YiXPSZ7LqVIHzew8vFYM/ieLiifEf6wp+UKF1QKBgFl66b+4XjxV3qYQB/e5\n8LKjV6T35MtvoorSjWfwd/avfb1A7A3u2LG0ecX8/dYhA/AALBWwwylzwLvF8UYW\nyETRKHSY/Dol9k3Rj891iGzpBCm0dpCMlZXoz8hV9hPq7oTKPOSPBQP6fmtz9cL8\ncDoPC934U1XTqcLfYkL0Stvd\n-----END PRIVATE KEY-----\n",
+  "private_key_id": "ENTER_YOUR_PRIVATE_KEY_ID",
+  "private_key": "ENTER_YOUR_PRIVATE_KEY",
   "client_email": "firebase-adminsdk-7sjmm@mywebsite-vivian.iam.gserviceaccount.com",
   "client_id": "112800671510869177346",
   "auth_uri": "https://accounts.google.com/o/oauth2/auth",
