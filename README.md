@@ -8,6 +8,7 @@
 -   Go to website folder: `cd /home/webapp/AI_PictureBooks_Web/website`
 -   Install the requirements: `pip install -r model/requirements.txt`
 -   Update TTS: `pip install -U TTS`
+-   Enter your firebase project's information in firebaseconfig.json
 -   Run the website: `python3 app.py` 
 
 ## Frontend
