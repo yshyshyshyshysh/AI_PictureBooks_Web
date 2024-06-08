@@ -3,7 +3,7 @@
 **`June 5, 2024 / by Yu-Shin, Hu and collaborators (see sidebar)`**
 
 
-[Go see the demo!](https://www.youtube.com/watch?v=iFsHQ6Nd-lY)
+[Click here to see the demo!](https://www.youtube.com/watch?v=iFsHQ6Nd-lY)
 
 
 ## How to run
@@ -16,6 +16,7 @@
 
 ## Frontend
 
+-   [Savory – Free Multi Page HTML5 Portfolio Template](https://themewagon.com/themes/free-multi-page-html5-portfolio-template-free-download/)
 -   Explore page: / (index.html)
 -   Personal page: /profile (profile.html)
 -   Registration page: /signup (signup.html)
