@@ -5,6 +5,7 @@
 
 [**Click here to see the demo!**](https://www.youtube.com/watch?v=iFsHQ6Nd-lY)
 
+<img src="https://github.com/yshyshyshyshysh/AI_PictureBooks_Web/assets/92580226/dd89184a-a209-4a3d-a3ad-90a3740d76bc" alt="preview" width="700">
 
 ## How to run
 
