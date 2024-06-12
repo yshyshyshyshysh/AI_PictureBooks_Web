@@ -3,7 +3,7 @@
 **`June 5, 2024 / by Yu-Shin, Hu and collaborators (see sidebar)`**
 
 
-[Click here to see the demo!](https://www.youtube.com/watch?v=iFsHQ6Nd-lY)
+[**Click here to see the demo!**](https://www.youtube.com/watch?v=iFsHQ6Nd-lY)
 
 
 ## How to run
