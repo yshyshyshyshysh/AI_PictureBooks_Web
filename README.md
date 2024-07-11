@@ -1,6 +1,6 @@
 # StoryVerse AI Hub: A Website for Fun Language Learning with AI-Generated Picture Books
 
-**`June 5, 2024 / by Yu-Shin, Hu and collaborators (see sidebar)`**
+**`June 5, 2024 / by Yu-Shin, Hu and collaborators (see report.pdf in document folder)`**
 
 
 [**Click here to see the demo!**](https://www.youtube.com/watch?v=iFsHQ6Nd-lY)
@@ -25,9 +25,13 @@
 -   Create page: /creator (creator.html)
 -   Story page: /project (project.html)
 
+## Backend
+-   [Python Flask](https://flask.palletsprojects.com/en/3.0.x/)
+-   [Firebase Javascript SDK](https://github.com/firebase/firebase-js-sdk)
+
 ## Database and API
 
--   See the attached file and [API functions](https://github.com/AdventrousAstronaut/web-app.git)
+-   See the attached file in document folder and [API functions](https://github.com/AdventrousAstronaut/web-app.git)
 -   [Firebase](https://firebase.google.com/?gad_source=1&gclid=Cj0KCQjwsPCyBhD4ARIsAPaaRf04BXRmDV-fFAGqVLLoO-Uzz7vbM-pmjPZWeXg5kn3zOe8lNq30t28aAs--EALw_wcB&gclsrc=aw.ds)
 
 ## AI models
