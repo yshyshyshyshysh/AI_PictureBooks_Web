@@ -1,0 +1,13 @@
+Flask==3.1.0
+googletrans==4.0.0rc1
+huggingface_hub==0.23.2
+llama_cpp_python==0.1.78
+matplotlib==3.8.4
+Pillow==9.3.0
+Pillow==9.0.1
+Pillow==11.1.0
+Requests==2.32.3
+torch==2.3.0
+transformers==4.41.2
+TTS==0.22.0
+TTS==0.22.0
